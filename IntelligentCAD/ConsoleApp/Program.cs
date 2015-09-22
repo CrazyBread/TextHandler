@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
@@ -10,7 +6,11 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-
+            TextHandler handler = new TextHandler();
+            string text = handler.ConvertTextToString("text.txt");
+            var words = handler.GetWords(text, "[^а-яА-Я]+");
+            var dictionary = handler.GetWordsCount(words);
+            Console.WriteLine("Done!");
         }
     }
 }
