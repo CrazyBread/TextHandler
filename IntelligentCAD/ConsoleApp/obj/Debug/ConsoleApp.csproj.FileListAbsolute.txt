@@ -1,0 +1,6 @@
+D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\bin\Debug\ConsoleApp.exe.config
+D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\bin\Debug\ConsoleApp.exe
+D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\bin\Debug\ConsoleApp.pdb
+D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.csprojResolveAssemblyReference.cache
+D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.exe
+D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.pdb
