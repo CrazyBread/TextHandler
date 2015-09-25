@@ -4,3 +4,9 @@ D:\Disk D\Универ\Магистратура\1_семестр\Интелле�
 D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.csprojResolveAssemblyReference.cache
 D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.exe
 D:\Disk D\Универ\Магистратура\1_семестр\Интеллектуальный САПР\Курсовая работа\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.pdb
+C:\Programming\Projects\TextHandler\IntelligentCAD\ConsoleApp\bin\Debug\ConsoleApp.exe.config
+C:\Programming\Projects\TextHandler\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.exe
+C:\Programming\Projects\TextHandler\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.pdb
+C:\Programming\Projects\TextHandler\IntelligentCAD\ConsoleApp\bin\Debug\ConsoleApp.exe
+C:\Programming\Projects\TextHandler\IntelligentCAD\ConsoleApp\bin\Debug\ConsoleApp.pdb
+C:\Programming\Projects\TextHandler\IntelligentCAD\ConsoleApp\obj\Debug\ConsoleApp.csprojResolveAssemblyReference.cache
