@@ -6,22 +6,6 @@ using System;
 
 namespace ConsoleApp
 {
-    /// <summary>
-    /// Статистический метод TF_IDF
-    /// </summary>
-    public static class TF_IDF
-    {
-        public static Dictionary<string, double> GetTF_IDF(int ccSize, Dictionary<string, double> tf_dictionary, int docNumber = 1)
-        {
-            return tf_dictionary.ToDictionary(i => i.Key, i => i.Value * Math.Log((double)(ccSize - docNumber) / docNumber));
-        }
-
-        public static Dictionary<string, double> GetTF(Dictionary<string, int> words, int count)
-        {
-            return words.ToDictionary(i => i.Key, i => ((double)i.Value / count));
-        }
-    }
-
     public static class FrequencyDictionary
     {
         public static Dictionary<string, int> GetFrequenceDictionary(List<string> words)
@@ -35,9 +19,40 @@ namespace ConsoleApp
                 .ToDictionary(i => i.word, i => i.count);
         }
 
-        public static int GetWordsCount(List<string> wordList)
+        public static int GetWordsCount(Dictionary<string, int> words)
         {
-            return wordList.Count;
+            return words.Sum(i => i.Value);
+        }
+
+        public static int NgramFrequence(List<string> wordList,List<string> ngramList)
+        {
+            if (wordList == null || ngramList == null)
+                return 0;
+            if(wordList.Count<ngramList.Count ||ngramList.Count<=1)
+                return 0;
+
+            var result = 0;
+            //Возможна также реализация через IndexOf.
+            var startNgramWord=ngramList[0];
+            for(var i=0;i<wordList.Count-ngramList.Count+1;i++)
+            {
+                //если не первое слово энГраммы не совпадает с текущим в списке слов, катимся дальше 
+                if (wordList[i] != startNgramWord)
+                    continue;
+
+                var isEqual=true;
+                //начинаем цикл со 2 слова, т.к. первое проверили на предыдущем шаге
+                for(var j=1;j<ngramList.Count;j++)
+                {
+                    if(wordList[i + j] != ngramList[j])
+                    {
+                        isEqual = false;
+                        continue;
+                    }
+                }
+                if (isEqual) result++;
+            }
+            return result;
         }
     }
 
@@ -51,9 +66,9 @@ namespace ConsoleApp
                 .ToList();
         }
 
-        public static Dictionary<string, int> ApplyExclusionMask(List<string> maskWords, Dictionary<string, int> words)
+        public static List<string> ApplyExclusionMask(this List<string> textList, List<string> maskWords )
         {
-            return words.Where(i => !maskWords.Contains(i.Key)).ToDictionary(i => i.Key, i => i.Value);
+            return textList.Where(i => !maskWords.Contains(i)).ToList();
         }
 
         //Временно
@@ -90,7 +105,7 @@ namespace ConsoleApp
             return list;
         }
 
-        public static void PrintWordsTop<T>(Dictionary<string, T> dictionary, int topCount, string phrase)
+        public static void PrintWordsTop<T>(this Dictionary<string, T> dictionary, int topCount, string phrase)
         {
             Console.WriteLine("==============={0}===============", phrase);
             var top = dictionary.OrderByDescending(i => i.Value).Take(topCount);
