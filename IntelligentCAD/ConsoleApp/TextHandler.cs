@@ -24,33 +24,48 @@ namespace ConsoleApp
             return words.Sum(i => i.Value);
         }
 
-        public static int NgramFrequence(List<string> wordList,List<string> ngramList)
+        public static int NgramFrequence(List<string> wordList, List<string> ngramList)
         {
             if (wordList == null || ngramList == null)
                 return 0;
-            if(wordList.Count<ngramList.Count ||ngramList.Count<=1)
+            if (wordList.Count < ngramList.Count || ngramList.Count <= 1)
                 return 0;
 
             var result = 0;
             //Возможна также реализация через IndexOf.
-            var startNgramWord=ngramList[0];
-            for(var i=0;i<wordList.Count-ngramList.Count+1;i++)
+            var startNgramWord = ngramList[0];
+            for (var i = 0; i < wordList.Count - ngramList.Count + 1; i++)
             {
                 //если не первое слово энГраммы не совпадает с текущим в списке слов, катимся дальше 
                 if (wordList[i] != startNgramWord)
                     continue;
 
-                var isEqual=true;
+                var isEqual = true;
                 //начинаем цикл со 2 слова, т.к. первое проверили на предыдущем шаге
-                for(var j=1;j<ngramList.Count;j++)
+                for (var j = 1; j < ngramList.Count; j++)
                 {
-                    if(wordList[i + j] != ngramList[j])
+                    if (wordList[i + j] != ngramList[j])
                     {
                         isEqual = false;
                         continue;
                     }
                 }
                 if (isEqual) result++;
+            }
+            return result;
+        }
+
+        public static Dictionary<WordDigram, int> GetDigramFrequenceDictionary(List<string> wordList)
+        {
+            var result = new Dictionary<WordDigram, int>();
+            List<string> digram;
+            for (var i = 0; i > wordList.Count - 1; i++)
+            {
+                digram = wordList.Skip(0).Take(2).ToList();
+                //Возможно хардкодно, но по мне это всегда будет работать, т.к. метод применяется только к диграммам
+                var digramKey = new WordDigram(digram[0], digram[1]);
+                if (!result.ContainsKey(digramKey))
+                    result.Add(digramKey,FrequencyDictionary.NgramFrequence(wordList, digram));
             }
             return result;
         }
@@ -66,7 +81,7 @@ namespace ConsoleApp
                 .ToList();
         }
 
-        public static List<string> ApplyExclusionMask(this List<string> textList, List<string> maskWords )
+        public static List<string> ApplyExclusionMask(this List<string> textList, List<string> maskWords)
         {
             return textList.Where(i => !maskWords.Contains(i)).ToList();
         }
@@ -113,6 +128,37 @@ namespace ConsoleApp
             {
                 Console.WriteLine("{0} - {1}", item.Key, item.Value);
             }
+        }
+    }
+
+    public class WordDigram
+    {
+        private const char separator = ' ';
+        public string FirstWord { get; private set; }
+        public string SecondWord { get; private set; }
+
+        public WordDigram(string firstWord, string secondWord)
+        {
+            FirstWord = firstWord;
+            SecondWord = secondWord;
+        }
+
+        public override string ToString()
+        {
+            return string.Concat(FirstWord, separator, SecondWord);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var dObj = obj as WordDigram;
+            if (dObj==null)
+                return base.Equals(obj);
+            return dObj.FirstWord == this.FirstWord && dObj.SecondWord == SecondWord;
+        }
+
+        public override int GetHashCode()
+        {
+            return FirstWord.GetHashCode() ^ SecondWord.GetHashCode();
         }
     }
 }
