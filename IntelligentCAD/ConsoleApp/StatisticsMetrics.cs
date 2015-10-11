@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
-
     public static class StatisticsMetrics
     {
-
         public static Dictionary<WordDigram, double> CalculateMutualInformation(this Dictionary<WordDigram, int> digramFrequece,
             Dictionary<string, int> freqDictionary, int wordsCount)
         {
