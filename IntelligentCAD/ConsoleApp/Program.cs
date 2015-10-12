@@ -1,6 +1,7 @@
 ﻿using System;
 using MultiprocessingLib;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ConsoleApp
 {
@@ -27,8 +28,10 @@ namespace ConsoleApp
             var tfidf_dictionary = StatisticsMetrics.GetTF_IDF(100000, tf_dictionary);
             tf_dictionary.PrintWordsTop(20, "TF*IDF(обратная частота документа)");
             Console.WriteLine("Done!");*/
-            Multiprocessor mps = new Multiprocessor();
-            mps.MultiprocessorFileRead(new List<string>() { "1.txt", "2.txt", "3.txt", "4.pdf" });
+            /*Multiprocessor mps = new Multiprocessor();
+            mps.MultiprocessorFileRead(new List<string>() { "1.txt", "2.txt", "3.txt", "4.pdf" });*/
+
+            MorphologyAnalises.Analize("Ехал грека через реку.");
         }
     }
 }

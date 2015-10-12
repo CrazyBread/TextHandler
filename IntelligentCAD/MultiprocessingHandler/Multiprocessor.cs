@@ -14,8 +14,8 @@ namespace MultiprocessingLib
         private List<string> list;
         private string name;
 
-        public List<string> List { get; }
-        public string Name { get; }
+        public List<string> List { get; set; }
+        public string Name { get; set; }
 
         public Data(string name, List<string> list)
         {
