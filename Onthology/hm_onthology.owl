@@ -1,0 +1,891 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/alex/ontologies/2015/9/untitled-ontology-4"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.semanticweb.org/alex/ontologies/2015/9/untitled-ontology-4">
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Declaration>
+        <Class IRI="#Акт"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Акт_о_проведении_КР"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Акт_о_состоянии_дома"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Водоочистное_сооружение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Газораспределительная_станция"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Государственная"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ДОИ"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ДПР"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ДУ"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Договор"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Документ"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Жилой_объект"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ИП"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Индивидуальный_жилой_дом"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Котельная"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#МКД"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Музей"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Нежилой_объект"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ОМС"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Общежитие"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Общежитие_городского_типа"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Объект_культурного_наследия"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Организация"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Офисное_здание"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Постановление"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#РОКР"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#РСО"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Студенческое_общежитие"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Театр"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Техническое_строение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#УК"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Университет"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Учебное_заведение"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Частная"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Школа"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Электростанция"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Аварийность"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Адрес"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Вид_подстанции"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Вид_ресурса"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Вид_услуги"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Год_постройки"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Дата_начала_действия"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Дата_окончания_действия"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Дата_подписания"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Дата_проведения_КР"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Диаметр_труб"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Директор"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Жилая_площадь"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Закон"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#ИНН"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#КПП"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_выставочных_помещений"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_инженеров"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_квартир"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_комнат"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_концертных_залов"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_котлов"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_лифтов"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_организаций"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_подъездов"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_потребителей"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_работников"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Количество_рабочих"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Контактные_данные"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Максимальное_число_посетителей"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Марка_котла"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Название"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Наличие_вахты"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Наличие_канализации"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Наличие_технического_этажа"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Напряжение"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Номер"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#ОГРН"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Объем_распределяемого_газа"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Обязательства"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Одобренный_подрядчик"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Описание"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Организация"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Официальный_представитель"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Площадь"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Площадь_участка"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Положения"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Производственная_мощность"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#РСО"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Состояние_дома"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Тип_обслуживания"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Тип_управления"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Тип_фильтрации"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Управляющая_организация"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Число_жителей"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Этажность"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Акт"/>
+        <Class IRI="#Документ"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Акт_о_проведении_КР"/>
+        <Class IRI="#Акт"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Акт_о_состоянии_дома"/>
+        <Class IRI="#Акт"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Водоочистное_сооружение"/>
+        <Class IRI="#Техническое_строение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Газораспределительная_станция"/>
+        <Class IRI="#Техническое_строение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Государственная"/>
+        <Class IRI="#Организация"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ДОИ"/>
+        <Class IRI="#Договор"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ДПР"/>
+        <Class IRI="#Договор"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ДУ"/>
+        <Class IRI="#Договор"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Договор"/>
+        <Class IRI="#Документ"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Жилой_объект"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ИП"/>
+        <Class IRI="#Частная"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Индивидуальный_жилой_дом"/>
+        <Class IRI="#Жилой_объект"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Котельная"/>
+        <Class IRI="#Техническое_строение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#МКД"/>
+        <Class IRI="#Жилой_объект"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Музей"/>
+        <Class IRI="#Объект_культурного_наследия"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Нежилой_объект"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ОМС"/>
+        <Class IRI="#Государственная"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Общежитие"/>
+        <Class IRI="#Жилой_объект"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Общежитие_городского_типа"/>
+        <Class IRI="#Общежитие"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Объект_культурного_наследия"/>
+        <Class IRI="#Нежилой_объект"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Офисное_здание"/>
+        <Class IRI="#Нежилой_объект"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Постановление"/>
+        <Class IRI="#Документ"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#РОКР"/>
+        <Class IRI="#Государственная"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#РСО"/>
+        <Class IRI="#Частная"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Студенческое_общежитие"/>
+        <Class IRI="#Общежитие"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Театр"/>
+        <Class IRI="#Объект_культурного_наследия"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Техническое_строение"/>
+        <Class IRI="#Нежилой_объект"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#УК"/>
+        <Class IRI="#Частная"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Университет"/>
+        <Class IRI="#Учебное_заведение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Учебное_заведение"/>
+        <Class IRI="#Нежилой_объект"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Частная"/>
+        <Class IRI="#Организация"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Школа"/>
+        <Class IRI="#Учебное_заведение"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Электростанция"/>
+        <Class IRI="#Техническое_строение"/>
+    </SubClassOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Аварийность"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Адрес"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Вид_подстанции"/>
+        <Class IRI="#Электростанция"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Вид_ресурса"/>
+        <Class IRI="#Техническое_строение"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Вид_услуги"/>
+        <Class IRI="#Техническое_строение"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Год_постройки"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Дата_начала_действия"/>
+        <Class IRI="#Документ"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Дата_окончания_действия"/>
+        <Class IRI="#Документ"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Дата_подписания"/>
+        <Class IRI="#Документ"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Дата_проведения_КР"/>
+        <Class IRI="#Акт_о_проведении_КР"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Диаметр_труб"/>
+        <Class IRI="#Газораспределительная_станция"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Директор"/>
+        <Class IRI="#Частная"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Жилая_площадь"/>
+        <Class IRI="#Жилой_объект"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Закон"/>
+        <Class IRI="#Постановление"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#ИНН"/>
+        <Class IRI="#Организация"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#КПП"/>
+        <Class IRI="#Организация"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_выставочных_помещений"/>
+        <Class IRI="#Музей"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_инженеров"/>
+        <Class IRI="#Организация"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_квартир"/>
+        <Class IRI="#МКД"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_комнат"/>
+        <Class IRI="#Общежитие"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_концертных_залов"/>
+        <Class IRI="#Театр"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_котлов"/>
+        <Class IRI="#Котельная"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_лифтов"/>
+        <Class IRI="#МКД"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_организаций"/>
+        <Class IRI="#Офисное_здание"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_подъездов"/>
+        <Class IRI="#МКД"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_потребителей"/>
+        <Class IRI="#Техническое_строение"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_работников"/>
+        <Class IRI="#Организация"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Количество_рабочих"/>
+        <Class IRI="#Организация"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Контактные_данные"/>
+        <Class IRI="#Организация"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Максимальное_число_посетителей"/>
+        <Class IRI="#Объект_культурного_наследия"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Марка_котла"/>
+        <Class IRI="#Котельная"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Название"/>
+        <Class IRI="#Организация"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Наличие_вахты"/>
+        <Class IRI="#Общежитие"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Наличие_канализации"/>
+        <Class IRI="#Индивидуальный_жилой_дом"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Наличие_технического_этажа"/>
+        <Class IRI="#МКД"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Напряжение"/>
+        <Class IRI="#Электростанция"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Номер"/>
+        <Class IRI="#Документ"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#ОГРН"/>
+        <Class IRI="#Организация"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Объем_распределяемого_газа"/>
+        <Class IRI="#Газораспределительная_станция"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Обязательства"/>
+        <Class IRI="#Договор"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Одобренный_подрядчик"/>
+        <Class IRI="#Частная"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Описание"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Организация"/>
+        <Class IRI="#ДОИ"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Официальный_представитель"/>
+        <Class IRI="#Государственная"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Площадь"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Площадь_участка"/>
+        <Class IRI="#Индивидуальный_жилой_дом"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Положения"/>
+        <Class IRI="#Акт"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Производственная_мощность"/>
+        <Class IRI="#Техническое_строение"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#РСО"/>
+        <Class IRI="#ДПР"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Состояние_дома"/>
+        <Class IRI="#Акт"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Тип_обслуживания"/>
+        <Class IRI="#РСО"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Тип_управления"/>
+        <Class IRI="#Жилой_объект"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Тип_фильтрации"/>
+        <Class IRI="#Водоочистное_сооружение"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Управляющая_организация"/>
+        <Class IRI="#ДУ"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Число_жителей"/>
+        <Class IRI="#Жилой_объект"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Этажность"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#Аварийность"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Адрес"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Вид_подстанции"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Вид_ресурса"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Вид_услуги"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Год_постройки"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Дата_начала_действия"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Дата_окончания_действия"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Дата_подписания"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Дата_проведения_КР"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Диаметр_труб"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Директор"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Жилая_площадь"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Закон"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ИНН"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#КПП"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_выставочных_помещений"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_инженеров"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_квартир"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_комнат"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_концертных_залов"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_котлов"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_лифтов"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_организаций"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_подъездов"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_потребителей"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_работников"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Количество_рабочих"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Контактные_данные"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Максимальное_число_посетителей"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Марка_котла"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Название"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Наличие_вахты"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Наличие_канализации"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Наличие_технического_этажа"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Напряжение"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Номер"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ОГРН"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Объем_распределяемого_газа"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Обязательства"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Одобренный_подрядчик"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Описание"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Организация"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Официальный_представитель"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Площадь"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Площадь_участка"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Положения"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Производственная_мощность"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#РСО"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Состояние_дома"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Тип_обслуживания"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Тип_управления"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Тип_фильтрации"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Управляющая_организация"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Число_жителей"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Этажность"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
