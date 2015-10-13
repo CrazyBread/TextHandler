@@ -16,10 +16,11 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      ontologyIRI="http://www.semanticweb.org/alex/ontologies/2015/9/untitled-ontology-4">
-    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
-    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
         <Class IRI="#Акт"/>
     </Declaration>
@@ -130,6 +131,39 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Электростанция"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#готовитРаспоряжения"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#заключаетДляОбслуживания"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#заключаетДляПоставкиРесурсов"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#заключаетДляУправления"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#определяетГодКапРемонта"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#определяетСостояниеОбъекта"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#отражаетПоложенияОбслуживания"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#подписываетАктНаПроверкуСостоянияОбъекта"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#подписываетАктОПроведенииКапРемонта"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#указываетНаПоставкуРесурсов"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#указываетНаУправление"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#Аварийность"/>
@@ -299,6 +333,12 @@
     <Declaration>
         <DataProperty IRI="#Этажность"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Договор_№1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#НовоеВремя"/>
+    </Declaration>
     <SubClassOf>
         <Class IRI="#Акт"/>
         <Class IRI="#Документ"/>
@@ -435,6 +475,132 @@
         <Class IRI="#Электростанция"/>
         <Class IRI="#Техническое_строение"/>
     </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#ДУ"/>
+        <NamedIndividual IRI="#Договор_№1"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#заключаетДляУправления"/>
+        <NamedIndividual IRI="#НовоеВремя"/>
+        <NamedIndividual IRI="#Договор_№1"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ИНН"/>
+        <NamedIndividual IRI="#НовоеВремя"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">5702001741</Literal>
+    </DataPropertyAssertion>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#готовитРаспоряжения"/>
+        <Class IRI="#ОМС"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#заключаетДляОбслуживания"/>
+        <Class IRI="#ИП"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#заключаетДляПоставкиРесурсов"/>
+        <Class IRI="#РСО"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#заключаетДляУправления"/>
+        <Class IRI="#УК"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#определяетГодКапРемонта"/>
+        <Class IRI="#Акт_о_проведении_КР"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#определяетСостояниеОбъекта"/>
+        <Class IRI="#Акт_о_состоянии_дома"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#отражаетПоложенияОбслуживания"/>
+        <Class IRI="#ДОИ"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#подписываетАктНаПроверкуСостоянияОбъекта"/>
+        <Class IRI="#РОКР"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#подписываетАктОПроведенииКапРемонта"/>
+        <Class IRI="#РОКР"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#указываетНаПоставкуРесурсов"/>
+        <Class IRI="#ДПР"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#указываетНаУправление"/>
+        <Class IRI="#ДУ"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#готовитРаспоряжения"/>
+        <Class IRI="#Постановление"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#заключаетДляОбслуживания"/>
+        <Class IRI="#ДОИ"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#заключаетДляПоставкиРесурсов"/>
+        <Class IRI="#ДПР"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#заключаетДляУправления"/>
+        <Class IRI="#ДУ"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#определяетГодКапРемонта"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#определяетСостояниеОбъекта"/>
+        <Class IRI="#Объект_жилого_фонда"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#отражаетПоложенияОбслуживания"/>
+        <Class IRI="#Жилой_объект"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#подписываетАктНаПроверкуСостоянияОбъекта"/>
+        <Class IRI="#Акт_о_состоянии_дома"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#подписываетАктОПроведенииКапРемонта"/>
+        <Class IRI="#Акт_о_проведении_КР"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#указываетНаПоставкуРесурсов"/>
+        <Class IRI="#Жилой_объект"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#указываетНаПоставкуРесурсов"/>
+        <Class IRI="#Объект_культурного_наследия"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#указываетНаПоставкуРесурсов"/>
+        <Class IRI="#Офисное_здание"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#указываетНаПоставкуРесурсов"/>
+        <Class IRI="#Учебное_заведение"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#указываетНаУправление"/>
+        <Class IRI="#Жилой_объект"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#указываетНаУправление"/>
+        <Class IRI="#Объект_культурного_наследия"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#указываетНаУправление"/>
+        <Class IRI="#Офисное_здание"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#указываетНаУправление"/>
+        <Class IRI="#Учебное_заведение"/>
+    </ObjectPropertyRange>
     <DataPropertyDomain>
         <DataProperty IRI="#Аварийность"/>
         <Class IRI="#Объект_жилого_фонда"/>
