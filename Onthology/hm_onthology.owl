@@ -337,6 +337,9 @@
         <NamedIndividual IRI="#Договор_№1"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#МКД_Гагарина_1"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#НовоеВремя"/>
     </Declaration>
     <SubClassOf>
@@ -479,6 +482,19 @@
         <Class IRI="#ДУ"/>
         <NamedIndividual IRI="#Договор_№1"/>
     </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#МКД"/>
+        <NamedIndividual IRI="#МКД_Гагарина_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#УК"/>
+        <NamedIndividual IRI="#НовоеВремя"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#указываетНаУправление"/>
+        <NamedIndividual IRI="#Договор_№1"/>
+        <NamedIndividual IRI="#МКД_Гагарина_1"/>
+    </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#заключаетДляУправления"/>
         <NamedIndividual IRI="#НовоеВремя"/>
