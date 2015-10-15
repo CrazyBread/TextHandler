@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiprocessingLib", "Multi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperLib", "Helper\HelperLib.csproj", "{D2C1FA22-B7B9-476D-8FED-9A68A856743D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLib", "Core\CoreLib.csproj", "{4B6B9112-DDDE-491D-95FD-1E2E11791F49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D2C1FA22-B7B9-476D-8FED-9A68A856743D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2C1FA22-B7B9-476D-8FED-9A68A856743D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2C1FA22-B7B9-476D-8FED-9A68A856743D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B6B9112-DDDE-491D-95FD-1E2E11791F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B6B9112-DDDE-491D-95FD-1E2E11791F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B6B9112-DDDE-491D-95FD-1E2E11791F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B6B9112-DDDE-491D-95FD-1E2E11791F49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

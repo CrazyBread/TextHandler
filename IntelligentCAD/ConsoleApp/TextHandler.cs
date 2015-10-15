@@ -8,17 +8,6 @@ namespace ConsoleApp
 {
     public static class FrequencyDictionary
     {
-        public static Dictionary<string, int> GetFrequenceDictionary(List<string> words)
-        {
-            return
-                (
-                    from word in words
-                    group words by word into grp
-                    select new { word = grp.Key, count = grp.Count() }
-                )
-                .ToDictionary(i => i.word, i => i.count);
-        }
-
         public static int GetWordsCount(Dictionary<string, int> words)
         {
             return words.Sum(i => i.Value);
@@ -51,21 +40,6 @@ namespace ConsoleApp
                     }
                 }
                 if (isEqual) result++;
-            }
-            return result;
-        }
-
-        public static Dictionary<WordDigram, int> GetDigramFrequenceDictionary(List<string> wordList)
-        {
-            var result = new Dictionary<WordDigram, int>();
-            List<string> digram;
-            for (var i = 0; i > wordList.Count - 1; i++)
-            {
-                digram = wordList.Skip(0).Take(2).ToList();
-                //Возможно хардкодно, но по мне это всегда будет работать, т.к. метод применяется только к диграммам
-                var digramKey = new WordDigram(digram[0], digram[1]);
-                if (!result.ContainsKey(digramKey))
-                    result.Add(digramKey,FrequencyDictionary.NgramFrequence(wordList, digram));
             }
             return result;
         }
@@ -131,34 +105,5 @@ namespace ConsoleApp
         }
     }
 
-    public class WordDigram
-    {
-        private const char separator = ' ';
-        public string FirstWord { get; private set; }
-        public string SecondWord { get; private set; }
-
-        public WordDigram(string firstWord, string secondWord)
-        {
-            FirstWord = firstWord;
-            SecondWord = secondWord;
-        }
-
-        public override string ToString()
-        {
-            return string.Concat(FirstWord, separator, SecondWord);
-        }
-
-        public override bool Equals(object obj)
-        {
-            var dObj = obj as WordDigram;
-            if (dObj==null)
-                return base.Equals(obj);
-            return dObj.FirstWord == this.FirstWord && dObj.SecondWord == SecondWord;
-        }
-
-        public override int GetHashCode()
-        {
-            return FirstWord.GetHashCode() ^ SecondWord.GetHashCode();
-        }
-    }
+    
 }

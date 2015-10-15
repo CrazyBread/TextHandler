@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
-    public class Lemm{
-        public string Value{get;private set;}
-        public string[] BeginForm{get;private set;}
+    public class Lemm
+    {
+        public string Value { get; private set; }
+        public string[] BeginForm { get; private set; }
 
-        public Lemm(string value,string[] beginForm)
+        public Lemm(string value, string[] beginForm)
         {
-            Value=value;
-            BeginForm=beginForm;
+            Value = value;
+            BeginForm = beginForm;
         }
     };
 
@@ -27,17 +28,18 @@ namespace ConsoleApp
 
         public static List<Lemm> Analize(string str)
         {
-            using(var input=new StreamWriter(inputFile,false,Encoding.UTF8))
+            using (var input = new StreamWriter(inputFile, false, Encoding.UTF8))
                 input.Write(str);
-            
-            Process.Start(new ProcessStartInfo{
-                Arguments=string.Format("{0} {1}",inputFile,outputFile),
-                UseShellExecute=false,
-                FileName=mystem
+
+            Process.Start(new ProcessStartInfo
+            {
+                Arguments = string.Format("{0} {1}", inputFile, outputFile),
+                UseShellExecute = false,
+                FileName = mystem
             }).WaitForExit();
 
             string res = "";
-            using(var output=new StreamReader(outputFile,Encoding.UTF8))
+            using (var output = new StreamReader(outputFile, Encoding.UTF8))
             {
                 res = output.ReadToEnd();
             }
@@ -50,9 +52,9 @@ namespace ConsoleApp
         private static List<Lemm> ParseMystemString(string str)
         {
             var result = new List<Lemm>();
-            var splitStrings = str.Trim().Split(new char[]{'}'},StringSplitOptions.RemoveEmptyEntries);
+            var splitStrings = str.Trim().Split(new char[] { '}' }, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach(var splitString in splitStrings)
+            foreach (var splitString in splitStrings)
             {
                 var pair = splitString.Split('{');
                 result.Add(new Lemm(pair[0], pair[1].Split('|')));

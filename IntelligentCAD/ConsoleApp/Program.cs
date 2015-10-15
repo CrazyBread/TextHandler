@@ -2,6 +2,8 @@
 using MultiprocessingLib;
 using System.Collections.Generic;
 using System.Text;
+using Core;
+using System.IO;
 
 namespace ConsoleApp
 {
@@ -31,7 +33,9 @@ namespace ConsoleApp
             /*Multiprocessor mps = new Multiprocessor();
             mps.MultiprocessorFileRead(new List<string>() { "1.txt", "2.txt", "3.txt", "4.pdf" });*/
 
-            MorphologyAnalises.Analize("Ехал грека через реку.");
+            //MorphologyAnalises.Analize("Ехал грека через реку.");
+            MystemProvider mst = new MystemProvider();
+            var list = mst.LaunchMystem("input.txt");
         }
     }
 }
