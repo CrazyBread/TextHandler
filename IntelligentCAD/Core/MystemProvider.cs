@@ -32,15 +32,15 @@ namespace Core
         /// </summary>
         /// <param name="srdr"></param>
         /// <returns></returns>
-        private List<Lemm2> GetMystemResult(StreamReader srdr) 
+        private List<Lemm> GetMystemResult(StreamReader srdr) 
         {
-            List<Lemm2> lemms = new List<Lemm2>();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Lemm2));
+            List<Lemm> lemms = new List<Lemm>();
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Lemm));
 
             string line = srdr.ReadLine();
             while (!srdr.EndOfStream)
             {
-                Lemm2 obj = (Lemm2)ser.ReadObject(new MemoryStream(Encoding.UTF8.GetBytes(line)));
+                Lemm obj = (Lemm)ser.ReadObject(new MemoryStream(Encoding.UTF8.GetBytes(line)));
                 if (obj.analysis != null)
                     lemms.Add(obj);
                 line = srdr.ReadLine();
@@ -51,10 +51,9 @@ namespace Core
         }
 
         /// <summary>
-        /// Запуск mystem.exe. Чтение из файла (удаление временного файла). Возвращение слов в канонической форме.
+        /// Запуск mystem.exe
         /// </summary>
-        /// <param name="args">строка аргументов</param>
-        public List<Lemm2> LaunchMystem(List<string> lines, string flags = "-cgin --format json")
+        public List<Lemm> LaunchMystem(List<string> lines, string flags = "-cgin --format json")
         {
             FileHelper.WriteFile(lines, inputFileName);
 
@@ -71,7 +70,7 @@ namespace Core
             process.Start();
             process.WaitForExit();
 
-            List<Lemm2> lemms = GetMystemResult(new StreamReader(outputFileName));
+            List<Lemm> lemms = GetMystemResult(new StreamReader(outputFileName));
 
             FileHelper.DeleteFile(inputFileName);
             FileHelper.DeleteFile(outputFileName);

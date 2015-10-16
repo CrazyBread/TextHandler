@@ -7,14 +7,14 @@ using HelperLib;
 namespace MultiprocessingLib
 {
     /// <summary>
-    /// Данные
+    /// Данные файла
     /// </summary>
-    public class Data
+    public class FileData
     {
         public List<string> List { get; private set; }
         public string Name { get; private set; }
 
-        public Data(string name, List<string> list)
+        public FileData(string name, List<string> list)
         {
             this.Name = name;
             this.List = list;
@@ -27,9 +27,9 @@ namespace MultiprocessingLib
     public class Multiprocessor
     {
         private Thread[] threads;
-        private List<Data> multiCache;
+        private List<FileData> multiCache;
 
-        public List<Data> Cache
+        public List<FileData> Cache
         {
             get { return multiCache; }
             private set { multiCache = value; }
@@ -37,7 +37,7 @@ namespace MultiprocessingLib
 
         public Multiprocessor()
         {
-            multiCache = new List<Data>();
+            multiCache = new List<FileData>();
         }
 
         private void _cleanCache()
@@ -60,7 +60,7 @@ namespace MultiprocessingLib
                 return;
 
             fh.ReadFile(out lines);
-            multiCache.Add(new Data(path, lines));
+            multiCache.Add(new FileData(path, lines));
         }
         #endregion
 
