@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core
 {
+    /// <summary>
+    /// Класс, описывающий биграмму
+    /// </summary>
     public class WordBigram
     {
         private const char separator = ' ';

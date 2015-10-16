@@ -34,8 +34,13 @@ namespace ConsoleApp
             mps.MultiprocessorFileRead(new List<string>() { "1.txt", "2.txt", "3.txt", "4.pdf" });*/
 
             //MorphologyAnalises.Analize("Ехал грека через реку.");
-            MystemProvider mst = new MystemProvider();
-            var list = mst.LaunchMystem("input.txt");
+
+            Multiprocessor mps = new Multiprocessor();
+            mps.MultiprocessorFileRead(new List<string>() { "mainText.txt" });
+            var texts = mps.Cache;
+
+            MystemProvider mst = new MystemProvider(1);
+            var list = mst.LaunchMystem(texts[0].List);
         }
     }
 }

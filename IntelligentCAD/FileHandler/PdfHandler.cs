@@ -24,7 +24,8 @@ namespace FileLib
                     rows = (PdfTextExtractor.GetTextFromPage(reader, i, new LocationTextExtractionStrategy())).Split('\n');
                     foreach (string row in rows)
                     {
-                        lines.Add(Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(row)));
+                        if(!string.IsNullOrEmpty(row))
+                            lines.Add(Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(row)));
                     }   
                 }
                 reader.Close();

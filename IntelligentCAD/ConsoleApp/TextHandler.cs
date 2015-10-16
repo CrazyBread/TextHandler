@@ -6,45 +6,6 @@ using System;
 
 namespace ConsoleApp
 {
-    public static class FrequencyDictionary
-    {
-        public static int GetWordsCount(Dictionary<string, int> words)
-        {
-            return words.Sum(i => i.Value);
-        }
-
-        public static int NgramFrequence(List<string> wordList, List<string> ngramList)
-        {
-            if (wordList == null || ngramList == null)
-                return 0;
-            if (wordList.Count < ngramList.Count || ngramList.Count <= 1)
-                return 0;
-
-            var result = 0;
-            //Возможна также реализация через IndexOf.
-            var startNgramWord = ngramList[0];
-            for (var i = 0; i < wordList.Count - ngramList.Count + 1; i++)
-            {
-                //если не первое слово энГраммы не совпадает с текущим в списке слов, катимся дальше 
-                if (wordList[i] != startNgramWord)
-                    continue;
-
-                var isEqual = true;
-                //начинаем цикл со 2 слова, т.к. первое проверили на предыдущем шаге
-                for (var j = 1; j < ngramList.Count; j++)
-                {
-                    if (wordList[i + j] != ngramList[j])
-                    {
-                        isEqual = false;
-                        continue;
-                    }
-                }
-                if (isEqual) result++;
-            }
-            return result;
-        }
-    }
-
     public static class TextHandler
     {
         public static List<string> GetWords(string text, string pattern)
@@ -72,7 +33,6 @@ namespace ConsoleApp
                     str = reader.ReadLine();
                     words.AddRange(GetWords(str, pattern));
                 }
-
             return words;
         }
 
@@ -90,7 +50,6 @@ namespace ConsoleApp
                     list.Add(reader.ReadLine());
                 }
             }
-
             return list;
         }
 

@@ -17,7 +17,9 @@ namespace FileLib
             {
                 while (!reader.EndOfStream)
                 {
-                    lines.Add(reader.ReadLine());
+                    string line = reader.ReadLine();
+                    if(!string.IsNullOrEmpty(line))
+                        lines.Add(line);
                 }
                 reader.Close();
             }

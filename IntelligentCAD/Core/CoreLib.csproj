@@ -41,12 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lemm.cs" />
+    <Compile Include="MorphologicalAnalysis.cs" />
     <Compile Include="MystemProvider.cs" />
     <Compile Include="StatisticsAnalysis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordBigram.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Helper\HelperLib.csproj">
+      <Project>{d2c1fa22-b7b9-476d-8fed-9a68a856743d}</Project>
+      <Name>HelperLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

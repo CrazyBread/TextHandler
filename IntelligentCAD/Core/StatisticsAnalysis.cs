@@ -27,20 +27,20 @@ namespace CoreLib
         }
 
         //TODO получение частотного словаря биграмм
-        //public static Dictionary<WordBigram, int> GetDigramFrequenceDictionary(List<string> wordList)
-        //{
-        //    var result = new Dictionary<WordBigram, int>();
-        //    List<string> digram;
-        //    for (var i = 0; i > wordList.Count - 1; i++)
-        //    {
-        //        digram = wordList.Skip(0).Take(2).ToList();
-        //        //Возможно хардкодно, но по мне это всегда будет работать, т.к. метод применяется только к диграммам
-        //        var digramKey = new WordBigram(digram[0], digram[1]);
-        //        if (!result.ContainsKey(digramKey))
-        //            result.Add(digramKey,FrequencyDictionary.NgramFrequence(wordList, digram));
-        //    }
-        //    return result;
-        //}
+        public static Dictionary<WordBigram, int> GetDigramFrequenceDictionary(List<string> wordList)
+        {
+            var result = new Dictionary<WordBigram, int>();
+            List<string> digram;
+            for (var i = 0; i > wordList.Count - 1; i++)
+            {
+                digram = wordList.Skip(0).Take(2).ToList();
+                //Возможно хардкодно, но по мне это всегда будет работать, т.к. метод применяется только к диграммам
+                var digramKey = new WordBigram(digram[0], digram[1]);
+                if (!result.ContainsKey(digramKey))
+                    result.Add(digramKey, GetNgramFrequence(wordList, digram));
+            }
+            return result;
+        }
 
         /// <summary>
         /// Метод Mutual Information (поиск наиболее статистически значимых двусловий)
@@ -148,6 +148,53 @@ namespace CoreLib
         public static Dictionary<string, double> GetTF_IDF(int ccSize, Dictionary<string, double> tf_dictionary, int docNumber = 1)
         {
             return tf_dictionary.ToDictionary(i => i.Key, i => i.Value * Math.Log((double)(ccSize - docNumber) / docNumber));
+        }
+
+        /// <summary>
+        /// Общее количество слов
+        /// </summary>
+        /// <param name="words"></param>
+        /// <returns></returns>
+        public static int GetWordsCount(Dictionary<string, int> words)
+        {
+            return words.Sum(i => i.Value);
+        }
+
+        /// <summary>
+        /// Частота N-граммы в предложении
+        /// </summary>
+        /// <param name="wordList"></param>
+        /// <param name="ngramList"></param>
+        /// <returns></returns>
+        public static int GetNgramFrequence(List<string> wordList, List<string> ngramList)
+        {
+            if (wordList == null || ngramList == null)
+                return 0;
+            if (wordList.Count < ngramList.Count || ngramList.Count <= 1)
+                return 0;
+
+            var result = 0;
+            //Возможна также реализация через IndexOf.
+            var startNgramWord = ngramList[0];
+            for (var i = 0; i < wordList.Count - ngramList.Count + 1; i++)
+            {
+                //если не первое слово энГраммы не совпадает с текущим в списке слов, катимся дальше 
+                if (wordList[i] != startNgramWord)
+                    continue;
+
+                var isEqual = true;
+                //начинаем цикл со 2 слова, т.к. первое проверили на предыдущем шаге
+                for (var j = 1; j < ngramList.Count; j++)
+                {
+                    if (wordList[i + j] != ngramList[j])
+                    {
+                        isEqual = false;
+                        continue;
+                    }
+                }
+                if (isEqual) result++;
+            }
+            return result;
         }
     }
 }

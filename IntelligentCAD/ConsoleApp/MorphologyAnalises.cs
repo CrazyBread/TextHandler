@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
+    /// <summary>
+    /// Слово, начальная форма
+    /// </summary>
     public class Lemm
     {
         public string Value { get; private set; }

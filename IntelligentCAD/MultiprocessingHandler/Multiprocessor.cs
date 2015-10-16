@@ -11,16 +11,13 @@ namespace MultiprocessingLib
     /// </summary>
     public class Data
     {
-        private List<string> list;
-        private string name;
-
-        public List<string> List { get; set; }
-        public string Name { get; set; }
+        public List<string> List { get; private set; }
+        public string Name { get; private set; }
 
         public Data(string name, List<string> list)
         {
-            this.name = name;
-            this.list = list;
+            this.Name = name;
+            this.List = list;
         }
     }
 
@@ -69,6 +66,7 @@ namespace MultiprocessingLib
 
         public void MultiprocessorFileRead(List<string> paths)
         {
+            _cleanCache();
             paths = FileHelper.CheckFiles(paths);
             if (paths.Count > 0)
             {

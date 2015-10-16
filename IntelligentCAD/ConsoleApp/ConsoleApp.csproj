@@ -52,6 +52,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="mainText.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mainTextShort.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="mystem\mystem.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -66,6 +72,10 @@
     <ProjectReference Include="..\Core\CoreLib.csproj">
       <Project>{4b6b9112-ddde-491d-95fd-1e2e11791f49}</Project>
       <Name>CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helper\HelperLib.csproj">
+      <Project>{d2c1fa22-b7b9-476d-8fed-9a68a856743d}</Project>
+      <Name>HelperLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\MultiprocessingHandler\MultiprocessingLib.csproj">
       <Project>{7e2b7d55-3c2a-4eb8-9548-736cbb0e7c64}</Project>

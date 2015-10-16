@@ -3,16 +3,40 @@ using System.Diagnostics;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
+using HelperLib;
 
 namespace Core
 {
+    /// <summary>
+    /// Класс, обеспечивающий запуск mystem.exe
+    /// </summary>
     public class MystemProvider
     {
-        private string path;
+        private string mystemPath;
+        private int index;
+        private string inputFileName;
+        private string outputFileName;
 
-        public MystemProvider(string path = @"mystem\mystem.exe")
+        public MystemProvider(int index, string mystemPath = @"mystem\mystem.exe")
         {
-            this.path = path;
+            this.mystemPath = mystemPath;
+            this.index = index;
+            this.inputFileName = "tmp_input_" + index + ".txt";
+            this.outputFileName = "tmp_output_" + index + ".txt";
+        }
+
+        /// <summary>
+        /// Парсер для строки (слово + начальные формы) mystem
+        /// </summary>
+        /// <param name="str">mystem-строка</param>
+        /// <returns></returns>
+        private Lemm ParseMystemString(string str)
+        {
+            var splitStrings = str.Split(new char[] { '{' }, StringSplitOptions.RemoveEmptyEntries);
+            string word = splitStrings[0];
+            string[] initialForms = (splitStrings[1].Trim().Split(new char[] { '}' }, StringSplitOptions.RemoveEmptyEntries)[0]).Split('|');
+
+            return new Lemm(word, initialForms);
         }
 
         /// <summary>
@@ -20,19 +44,17 @@ namespace Core
         /// </summary>
         /// <param name="sr"></param>
         /// <returns></returns>
-        private List<string> GetMystemResult(StreamReader sr)
+        private List<Lemm> GetMystemResult(StreamReader sr)
         {
-            List<string> list = new List<string>();
-            
+            List<Lemm> list = new List<Lemm>();
             string line = sr.ReadLine();
 
             while (!sr.EndOfStream)
             {
-                byte[] bts = Encoding.UTF8.GetBytes(line);
-                //list.Add(line);
-                list.Add(Encoding.UTF8.GetString(bts));
+                list.Add(ParseMystemString(line));
                 line = sr.ReadLine();
             }
+            sr.Close();
 
             return list;
         }
@@ -41,42 +63,28 @@ namespace Core
         /// Запуск mystem.exe. Чтение из файла (удаление временного файла). Возвращение слов в канонической форме.
         /// </summary>
         /// <param name="args">строка аргументов</param>
-        public List<string> LaunchMystem(string inputFile, string flags = "-n")
+        public List<Lemm> LaunchMystem(List<string> lines, string flags = "-n")
         {
+            FileHelper.WriteFile(lines, inputFileName);
+
             Process process = new Process()
             {
                 StartInfo = new ProcessStartInfo()
                 {
-                    Arguments = "-n -e cp866 - -",//String.Format("input.txt -", flags),
-                    FileName = path,
-                    RedirectStandardOutput = true,
-                    RedirectStandardInput = true,
-                    RedirectStandardError = true,
+                    Arguments = String.Format("{0} {1} {2}", flags, inputFileName, outputFileName),
+                    FileName = mystemPath,
                     UseShellExecute = false,
-                    StandardOutputEncoding = Encoding.GetEncoding(866),
                 }
             };
             process.Start();
-            //byte[] bytes = Encoding.Default.GetBytes("Привет меня зовут Алексей");
-            //string myString = Encoding.Unicode.GetString(bytes);
-            string myString = "Это тестовая строка для mystem";
-            process.StandardInput.WriteLine(myString);
-            StreamReader outStream = process.StandardOutput;
-            StreamReader error = process.StandardError;
-            process.StandardInput.Close();
-            //StreamWriter inStream = process.StandardInput;
-
-            /*string str = "";
-            byte[] byteArray = Encoding.UTF8.GetBytes(str);
-            MemoryStream ms = new MemoryStream(byteArray);
-            inStream = new StreamWriter(ms);*/
-
-
             process.WaitForExit();
+            
+            List<Lemm> lemms = GetMystemResult(new StreamReader(outputFileName));
 
-            return GetMystemResult(outStream);
+            FileHelper.DeleteFile(inputFileName);
+            FileHelper.DeleteFile(outputFileName);
+
+            return lemms;
         }
-
-
     }
 }
