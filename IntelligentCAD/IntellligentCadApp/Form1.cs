@@ -60,7 +60,11 @@ namespace IntellligentCadApp
             var provider = new MystemProvider(0);
 #warning Твердый гвоздь 
             return provider.LaunchMystem(lines)
-                .Select(el=>el.InitialForms[0])
+                .Select(el=> {
+                    if (el.analysis.Length == 0)
+                        return el.text;
+                    return el.analysis[0].lex;
+                })
                 .ToList();
         }
 

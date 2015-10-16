@@ -10,17 +10,17 @@ namespace Core
     /// <summary>
     /// Описание слова и его начальных форм
     /// </summary>
-    public class Lemm
-    {
-        public string Value { get; private set; }
-        public string[] InitialForms { get; private set; }
+    //public class Lemm
+    //{
+    //    public string Value { get; private set; }
+    //    public string[] InitialForms { get; private set; }
 
-        public Lemm(string value, string[] beginForm)
-        {
-            Value = value;
-            InitialForms = beginForm;
-        }
-    }
+    //    public Lemm(string value, string[] beginForm)
+    //    {
+    //        Value = value;
+    //        InitialForms = beginForm;
+    //    }
+    //}
 
     [DataContract]
     public class Lemm2

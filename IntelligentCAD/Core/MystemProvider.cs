@@ -28,20 +28,6 @@ namespace Core
         }
 
         /// <summary>
-        /// Парсер для строки (слово + начальные формы) mystem
-        /// </summary>
-        /// <param name="str">mystem-строка</param>
-        /// <returns></returns>
-        private Lemm ParseMystemString(string str)
-        {
-            var splitStrings = str.Split(new char[] { '{' }, StringSplitOptions.RemoveEmptyEntries);
-            string word = splitStrings[0];
-            string[] initialForms = (splitStrings[1].Trim().Split(new char[] { '}' }, StringSplitOptions.RemoveEmptyEntries)[0]).Split('|');
-
-            return new Lemm(word, initialForms);
-        }
-
-        /// <summary>
         /// Парсинг json-файла результата выполнения mystem
         /// </summary>
         /// <param name="srdr"></param>
