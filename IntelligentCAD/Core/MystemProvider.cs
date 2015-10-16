@@ -74,6 +74,7 @@ namespace Core
                     Arguments = String.Format("{0} {1} {2}", flags, inputFileName, outputFileName),
                     FileName = mystemPath,
                     UseShellExecute = false,
+                    CreateNoWindow=true
                 }
             };
             process.Start();

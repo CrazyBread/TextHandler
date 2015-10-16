@@ -31,9 +31,9 @@ namespace CoreLib
         {
             var result = new Dictionary<WordBigram, int>();
             List<string> digram;
-            for (var i = 0; i > wordList.Count - 1; i++)
+            for (var i = 0; i < wordList.Count - 1; i++)
             {
-                digram = wordList.Skip(0).Take(2).ToList();
+                digram = wordList.Skip(i).Take(2).ToList();
                 //Возможно хардкодно, но по мне это всегда будет работать, т.к. метод применяется только к диграммам
                 var digramKey = new WordBigram(digram[0], digram[1]);
                 if (!result.ContainsKey(digramKey))
@@ -86,7 +86,7 @@ namespace CoreLib
                 //частота второго слова
                 var fy = frequencyDictionary[key.SecondWord];
                 result.Add(key,
-                    (pair.Value - (fx * fy / wordsCount)) / (pair.Value * pair.Value)
+                    ((pair.Value - (fx * fy / (double) wordsCount)) / (pair.Value * pair.Value))
                     );
             }
             return result;
