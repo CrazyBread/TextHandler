@@ -4,6 +4,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using HelperLib;
+using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
 
 namespace Core
 {
@@ -22,7 +24,7 @@ namespace Core
             this.mystemPath = mystemPath;
             this.index = index;
             this.inputFileName = "tmp_input_" + index + ".txt";
-            this.outputFileName = "tmp_output_" + index + ".txt";
+            this.outputFileName = "tmp_output_" + index + ".json";
         }
 
         /// <summary>
@@ -40,30 +42,33 @@ namespace Core
         }
 
         /// <summary>
-        /// Получение списка слов в канонической форме
+        /// Парсинг json-файла результата выполнения mystem
         /// </summary>
-        /// <param name="sr"></param>
+        /// <param name="srdr"></param>
         /// <returns></returns>
-        private List<Lemm> GetMystemResult(StreamReader sr)
+        private List<Lemm2> GetMystemResult(StreamReader srdr) 
         {
-            List<Lemm> list = new List<Lemm>();
-            string line = sr.ReadLine();
+            List<Lemm2> lemms = new List<Lemm2>();
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Lemm2));
 
-            while (!sr.EndOfStream)
+            string line = srdr.ReadLine();
+            while (!srdr.EndOfStream)
             {
-                list.Add(ParseMystemString(line));
-                line = sr.ReadLine();
+                Lemm2 obj = (Lemm2)ser.ReadObject(new MemoryStream(Encoding.UTF8.GetBytes(line)));
+                if (obj.analysis != null)
+                    lemms.Add(obj);
+                line = srdr.ReadLine();
             }
-            sr.Close();
+            srdr.Close();
 
-            return list;
+            return lemms;
         }
 
         /// <summary>
         /// Запуск mystem.exe. Чтение из файла (удаление временного файла). Возвращение слов в канонической форме.
         /// </summary>
         /// <param name="args">строка аргументов</param>
-        public List<Lemm> LaunchMystem(List<string> lines, string flags = "-n")
+        public List<Lemm2> LaunchMystem(List<string> lines, string flags = "-cgin --format json")
         {
             FileHelper.WriteFile(lines, inputFileName);
 
@@ -74,13 +79,13 @@ namespace Core
                     Arguments = String.Format("{0} {1} {2}", flags, inputFileName, outputFileName),
                     FileName = mystemPath,
                     UseShellExecute = false,
-                    CreateNoWindow=true
+                    CreateNoWindow = true
                 }
             };
             process.Start();
             process.WaitForExit();
-            
-            List<Lemm> lemms = GetMystemResult(new StreamReader(outputFileName));
+
+            List<Lemm2> lemms = GetMystemResult(new StreamReader(outputFileName));
 
             FileHelper.DeleteFile(inputFileName);
             FileHelper.DeleteFile(outputFileName);

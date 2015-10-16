@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public class MorphologicalAnalysis
+    public static class MorphologicalAnalysis
     {
-        private MystemProvider mst;
+
     }
 }
