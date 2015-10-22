@@ -9,13 +9,13 @@ namespace Core
     /// <summary>
     /// Класс, описывающий биграмму
     /// </summary>
-    public class WordBigram
+    public class WordDigram
     {
         private const char separator = ' ';
         public string FirstWord { get; private set; }
         public string SecondWord { get; private set; }
 
-        public WordBigram(string firstWord, string secondWord)
+        public WordDigram(string firstWord, string secondWord)
         {
             FirstWord = firstWord;
             SecondWord = secondWord;
@@ -28,7 +28,7 @@ namespace Core
 
         public override bool Equals(object obj)
         {
-            var dObj = obj as WordBigram;
+            var dObj = obj as WordDigram;
             if (dObj == null)
                 return base.Equals(obj);
             return dObj.FirstWord == this.FirstWord && dObj.SecondWord == SecondWord;

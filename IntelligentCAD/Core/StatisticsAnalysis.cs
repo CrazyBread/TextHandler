@@ -27,15 +27,15 @@ namespace CoreLib
         }
 
         //TODO получение частотного словаря биграмм
-        public static Dictionary<WordBigram, int> GetDigramFrequenceDictionary(List<string> wordList)
+        public static Dictionary<WordDigram, int> GetDigramFrequenceDictionary(List<string> wordList)
         {
-            var result = new Dictionary<WordBigram, int>();
+            var result = new Dictionary<WordDigram, int>();
             List<string> digram;
             for (var i = 0; i < wordList.Count - 1; i++)
             {
                 digram = wordList.Skip(i).Take(2).ToList();
                 //Возможно хардкодно, но по мне это всегда будет работать, т.к. метод применяется только к диграммам
-                var digramKey = new WordBigram(digram[0], digram[1]);
+                var digramKey = new WordDigram(digram[0], digram[1]);
                 if (!result.ContainsKey(digramKey))
                     result.Add(digramKey, GetNgramFrequence(wordList, digram));
             }
@@ -49,10 +49,10 @@ namespace CoreLib
         /// <param name="frequencyDictionary"></param>
         /// <param name="wordsCount"></param>
         /// <returns></returns>
-        public static Dictionary<WordBigram, double> CalculateMutualInformation(this Dictionary<WordBigram, int> frequencyDiagram,
+        public static Dictionary<WordDigram, double> CalculateMutualInformation(this Dictionary<WordDigram, int> frequencyDiagram,
             Dictionary<string, int> frequencyDictionary, int wordsCount)
         {
-            var result = new Dictionary<WordBigram, double>();
+            var result = new Dictionary<WordDigram, double>();
             foreach (var pair in frequencyDiagram)
             {
                 var key = pair.Key;
@@ -74,10 +74,10 @@ namespace CoreLib
         /// <param name="frequencyDictionary"></param>
         /// <param name="wordsCount"></param>
         /// <returns></returns>
-        public static Dictionary<WordBigram, double> CalculateTSorce(this Dictionary<WordBigram, int> frequencyDiagram,
+        public static Dictionary<WordDigram, double> CalculateTScore(this Dictionary<WordDigram, int> frequencyDiagram,
             Dictionary<string, int> frequencyDictionary, int wordsCount)
         {
-            var result = new Dictionary<WordBigram, double>();
+            var result = new Dictionary<WordDigram, double>();
             foreach (var pair in frequencyDiagram)
             {
                 var key = pair.Key;
@@ -97,9 +97,9 @@ namespace CoreLib
         /// </summary>
         /// <param name="frequencyDiagram"></param>
         /// <returns></returns>
-        public static Dictionary<WordBigram, double> CalculateLogLikelihood(this Dictionary<WordBigram, int> frequencyDiagram)
+        public static Dictionary<WordDigram, double> CalculateLogLikelihood(this Dictionary<WordDigram, int> frequencyDiagram)
         {
-            var result = new Dictionary<WordBigram, double>();
+            var result = new Dictionary<WordDigram, double>();
             foreach (var pair in frequencyDiagram)
             {
                 var a = pair.Value;

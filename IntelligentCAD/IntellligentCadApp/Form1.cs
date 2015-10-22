@@ -126,7 +126,7 @@ namespace IntellligentCadApp
         {
             var freqDictionary = GetWords().GetFrequencyDictionary();
             var digramfreqDictionary = StatisticsAnalysis.GetDigramFrequenceDictionary(GetWords());
-            var result = digramfreqDictionary.CalculateTSorce(freqDictionary, words.Count);
+            var result = digramfreqDictionary.CalculateTScore(freqDictionary, words.Count);
             Input(result.ToDictionary(el => el.Key.ToString(), el => el.Value), "TSorce");
         }
 

@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClusterVectors.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="FCMAnaliser.cs" />
     <Compile Include="Lemm.cs" />
     <Compile Include="MorphologicalAnalysis.cs" />
     <Compile Include="MystemProvider.cs" />
