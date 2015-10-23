@@ -19,27 +19,27 @@ namespace Core
             TF_IDF = tf_idf;
         }
 
-        public override static WordVector operator + (WordVector first, WordVector second)
+        public static WordVector operator + (WordVector first, WordVector second)
         {
             return new WordVector("sum", first.Frequency + second.Frequency, first.TF_IDF + second.TF_IDF);
         }
 
-        public override static WordVector operator * (WordVector first, double val)
+        public static WordVector operator * (WordVector first, double val)
         {
             return new WordVector(first.WordValue, first.Frequency * val, first.TF_IDF * val);
         }
 
-        public override static WordVector operator * (double val, WordVector first)
+        public static WordVector operator * (double val, WordVector first)
         {
             return first * val;
         }
 
-        public override static WordVector operator / (WordVector first, double val)
+        public static WordVector operator / (WordVector first, double val)
         {
             return new WordVector(first.WordValue, first.Frequency / val, first.TF_IDF / val);
         }
 
-        public override static WordVector operator / (double val, WordVector first)
+        public static WordVector operator / (double val, WordVector first)
         {
             return first / val;
         }

@@ -196,5 +196,30 @@ namespace CoreLib
             }
             return result;
         }
+
+        /// <summary>
+        /// Возвращает словарь со всеми проведенными исследованиями
+        /// </summary>
+        /// <param name="dictionaries"></param>
+        /// <returns></returns>
+        public static Dictionary<WordDigram, double[]> MergeDictionaries(List<Dictionary<WordDigram, double>> dictionaries)
+        {
+            Dictionary<WordDigram, double[]> mergedDictionary = new Dictionary<WordDigram, double[]>();
+
+            foreach (var key in dictionaries[0].Keys)
+            {
+                List<double> metrics = new List<double>();
+                foreach (var dic in dictionaries)
+                {
+                    double val;
+                    if (dic.TryGetValue(key, out val))
+                        metrics.Add(dic[key]);
+                    else
+                        metrics.Add(0.0f);
+                }
+                mergedDictionary.Add(key, metrics.ToArray());    
+            }
+            return mergedDictionary;
+        }
     }
 }
