@@ -110,36 +110,36 @@ namespace IntellligentCadApp
 
         private void FreqButton_Click(object sender, EventArgs e)
         {
-            var freqDictionary = GetWords().GetFrequencyDictionary();
+            var freqDictionary = StatisticsAnalysis.GetFrequencyDictionary(GetWords());
             Input(freqDictionary, "Частотный анализ");
         }
 
         private void mutInfButton_Click(object sender, EventArgs e)
         {
-            var freqDictionary = GetWords().GetFrequencyDictionary();
+            var freqDictionary = StatisticsAnalysis.GetFrequencyDictionary(GetWords());
             var digramfreqDictionary = StatisticsAnalysis.GetDigramFrequenceDictionary(GetWords());
-            var result = digramfreqDictionary.CalculateMutualInformation(freqDictionary, words.Count);
+            var result = StatisticsAnalysis.CalculateMutualInformation(digramfreqDictionary, freqDictionary, words.Count);
             Input(result.ToDictionary(el => el.Key.ToString(), el => el.Value), "MutualInformation");
         }
 
         private void tSourceButton_Click(object sender, EventArgs e)
         {
-            var freqDictionary = GetWords().GetFrequencyDictionary();
+            var freqDictionary = StatisticsAnalysis.GetFrequencyDictionary(GetWords());
             var digramfreqDictionary = StatisticsAnalysis.GetDigramFrequenceDictionary(GetWords());
-            var result = digramfreqDictionary.CalculateTScore(freqDictionary, words.Count);
+            var result = StatisticsAnalysis.CalculateTScore(digramfreqDictionary, freqDictionary, words.Count);
             Input(result.ToDictionary(el => el.Key.ToString(), el => el.Value), "TSorce");
         }
 
         private void LogLinkButton_Click(object sender, EventArgs e)
         {
             var digramfreqDictionary = StatisticsAnalysis.GetDigramFrequenceDictionary(GetWords());
-            var result = digramfreqDictionary.CalculateLogLikelihood();
+            var result = StatisticsAnalysis.CalculateLogLikelihood(digramfreqDictionary);
             Input(result.ToDictionary(el => el.Key.ToString(), el => el.Value), "LogLikelihood");
         }
 
         private void IDFButton_Click(object sender, EventArgs e)
         {
-            var freqDictionary = GetWords().GetFrequencyDictionary();
+            var freqDictionary = StatisticsAnalysis.GetFrequencyDictionary(GetWords());
             var tf_dictionary = StatisticsAnalysis.GetTF(freqDictionary, words.Count);
             var tfidf_dictionary = StatisticsAnalysis.GetTF_IDF(100000, tf_dictionary);
             Input(tfidf_dictionary, "TF*IDF");

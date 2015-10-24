@@ -10,12 +10,13 @@ namespace CoreLib
     /// </summary>
     public static class StatisticsAnalysis
     {
+        #region Однословия
         /// <summary>
         /// Получение частотного словаря (слова)
         /// </summary>
         /// <param name="words"></param>
         /// <returns></returns>
-        public static Dictionary<string, int> GetFrequencyDictionary(this List<string> words)
+        public static Dictionary<string, int> GetFrequencyDictionary(List<string> words)
         {
             return
                 (
@@ -25,8 +26,37 @@ namespace CoreLib
                 )
                 .ToDictionary(i => i.word, i => i.count);
         }
+        
+        /// <summary>
+        /// Метод TF (Абсолютная частота встречаемости слова в тексте)
+        /// </summary>
+        /// <param name="words"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static Dictionary<string, double> GetTF(Dictionary<string, int> words, int count)
+        {
+            return words.ToDictionary(i => i.Key, i => ((double)i.Value / count));
+        }
 
-        //TODO получение частотного словаря биграмм
+        /// <summary>
+        /// Метод TFxIDF (наиболее статистически значимые однословия)
+        /// </summary>
+        /// <param name="ccSize"></param>
+        /// <param name="tf_dictionary"></param>
+        /// <param name="docNumber"></param>
+        /// <returns></returns>
+        public static Dictionary<string, double> GetTF_IDF(int ccSize, Dictionary<string, double> tf_dictionary, int docNumber = 1)
+        {
+            return tf_dictionary.ToDictionary(i => i.Key, i => i.Value * Math.Log((double)(ccSize - docNumber) / docNumber));
+        }
+        #endregion
+
+        #region Биграммы
+        /// <summary>
+        /// Получение частотного словаря биграмм
+        /// </summary>
+        /// <param name="wordList"></param>
+        /// <returns></returns>
         public static Dictionary<WordDigram, int> GetDigramFrequenceDictionary(List<string> wordList)
         {
             var result = new Dictionary<WordDigram, int>();
@@ -34,7 +64,6 @@ namespace CoreLib
             for (var i = 0; i < wordList.Count - 1; i++)
             {
                 digram = wordList.Skip(i).Take(2).ToList();
-                //Возможно хардкодно, но по мне это всегда будет работать, т.к. метод применяется только к диграммам
                 var digramKey = new WordDigram(digram[0], digram[1]);
                 if (!result.ContainsKey(digramKey))
                     result.Add(digramKey, GetNgramFrequence(wordList, digram));
@@ -49,7 +78,7 @@ namespace CoreLib
         /// <param name="frequencyDictionary"></param>
         /// <param name="wordsCount"></param>
         /// <returns></returns>
-        public static Dictionary<WordDigram, double> CalculateMutualInformation(this Dictionary<WordDigram, int> frequencyDiagram,
+        public static Dictionary<WordDigram, double> CalculateMutualInformation(Dictionary<WordDigram, int> frequencyDiagram,
             Dictionary<string, int> frequencyDictionary, int wordsCount)
         {
             var result = new Dictionary<WordDigram, double>();
@@ -74,7 +103,7 @@ namespace CoreLib
         /// <param name="frequencyDictionary"></param>
         /// <param name="wordsCount"></param>
         /// <returns></returns>
-        public static Dictionary<WordDigram, double> CalculateTScore(this Dictionary<WordDigram, int> frequencyDiagram,
+        public static Dictionary<WordDigram, double> CalculateTScore(Dictionary<WordDigram, int> frequencyDiagram,
             Dictionary<string, int> frequencyDictionary, int wordsCount)
         {
             var result = new Dictionary<WordDigram, double>();
@@ -86,7 +115,7 @@ namespace CoreLib
                 //частота второго слова
                 var fy = frequencyDictionary[key.SecondWord];
                 result.Add(key,
-                    ((pair.Value - (fx * fy / (double) wordsCount)) / (pair.Value * pair.Value))
+                    ((pair.Value - (fx * fy / (double)wordsCount)) / (pair.Value * pair.Value))
                     );
             }
             return result;
@@ -97,7 +126,7 @@ namespace CoreLib
         /// </summary>
         /// <param name="frequencyDiagram"></param>
         /// <returns></returns>
-        public static Dictionary<WordDigram, double> CalculateLogLikelihood(this Dictionary<WordDigram, int> frequencyDiagram)
+        public static Dictionary<WordDigram, double> CalculateLogLikelihood(Dictionary<WordDigram, int> frequencyDiagram)
         {
             var result = new Dictionary<WordDigram, double>();
             foreach (var pair in frequencyDiagram)
@@ -126,40 +155,9 @@ namespace CoreLib
             }
             return result;
         }
+        #endregion
 
-        /// <summary>
-        /// Метод TF (Абсолютная частота встречаемости слова в тексте)
-        /// </summary>
-        /// <param name="words"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public static Dictionary<string, double> GetTF(Dictionary<string, int> words, int count)
-        {
-            return words.ToDictionary(i => i.Key, i => ((double)i.Value / count));
-        }
-
-        /// <summary>
-        /// Метод TFxIDF (наиболее статистически значимые однословия)
-        /// </summary>
-        /// <param name="ccSize"></param>
-        /// <param name="tf_dictionary"></param>
-        /// <param name="docNumber"></param>
-        /// <returns></returns>
-        public static Dictionary<string, double> GetTF_IDF(int ccSize, Dictionary<string, double> tf_dictionary, int docNumber = 1)
-        {
-            return tf_dictionary.ToDictionary(i => i.Key, i => i.Value * Math.Log((double)(ccSize - docNumber) / docNumber));
-        }
-
-        /// <summary>
-        /// Общее количество слов
-        /// </summary>
-        /// <param name="words"></param>
-        /// <returns></returns>
-        public static int GetWordsCount(Dictionary<string, int> words)
-        {
-            return words.Sum(i => i.Value);
-        }
-
+        #region N-граммы
         /// <summary>
         /// Частота N-граммы в предложении
         /// </summary>
@@ -196,15 +194,22 @@ namespace CoreLib
             }
             return result;
         }
+        #endregion
+    }
 
+    /// <summary>
+    /// Extension-методы для статистического анализа
+    /// </summary>
+    public static class StatisticsAnalysisExtensions
+    {
         /// <summary>
         /// Возвращает словарь со всеми проведенными исследованиями
         /// </summary>
         /// <param name="dictionaries"></param>
         /// <returns></returns>
-        public static Dictionary<WordDigram, double[]> MergeDictionaries(List<Dictionary<WordDigram, double>> dictionaries)
+        public static Dictionary<T, double[]> MergeDictionaries<T>(this List<Dictionary<T, double>> dictionaries)
         {
-            Dictionary<WordDigram, double[]> mergedDictionary = new Dictionary<WordDigram, double[]>();
+            Dictionary<T, double[]> mergedDictionary = new Dictionary<T, double[]>();
 
             foreach (var key in dictionaries[0].Keys)
             {
@@ -217,9 +222,19 @@ namespace CoreLib
                     else
                         metrics.Add(0.0f);
                 }
-                mergedDictionary.Add(key, metrics.ToArray());    
+                mergedDictionary.Add(key, metrics.ToArray());
             }
             return mergedDictionary;
+        }
+
+        /// <summary>
+        /// Общее количество слов
+        /// </summary>
+        /// <param name="words"></param>
+        /// <returns></returns>
+        public static int GetWordsCount(this Dictionary<string, int> words)
+        {
+            return words.Sum(i => i.Value);
         }
     }
 }

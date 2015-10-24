@@ -9,7 +9,7 @@ namespace ConsoleApp
 {
     class Program
     {
-        public class ClasterAnalysis
+        public class ClasterAnalysis<T>
         {
             private int clustersCount;
             private int dataVectorsCount;
@@ -20,9 +20,10 @@ namespace ConsoleApp
             private double fuzziness;
             private double[,] data;
             private double[,] clusterCenters;
-            private List<WordDigram> wordsDigrams;
+            private List<T> wordsDigrams;
 
-            public ClasterAnalysis(Dictionary<WordDigram, double[]> wordStats, double epsilon, double fuzziness, int iterations, double[,] clusters)
+            #region Конструкторы
+            public ClasterAnalysis(Dictionary<T, double[]> wordStats, double epsilon, double fuzziness, int iterations, double[,] clusters)
             {
                 this.epsilon = epsilon;
                 this.fuzziness = fuzziness;
@@ -37,12 +38,13 @@ namespace ConsoleApp
                 dataVectorsCount = data.GetLength(0);
                 dimensionsCount = data.GetLength(1);
             }
+            #endregion    
 
             /// <summary>
             /// Сохранение данных
             /// </summary>
             /// <param name="wordStats"></param>
-            private List<WordDigram> FillDataMatrix(Dictionary<WordDigram, double[]> wordStats)
+            private List<T> FillDataMatrix(Dictionary<T, double[]> wordStats)
             {
                 wordsDigrams = wordStats.Keys.ToList();
                 int n = 0;
@@ -103,13 +105,12 @@ namespace ConsoleApp
             /// <returns></returns>
             private double CalculateNewMemberDegreeItem(int i, int j)
             {
-                double power = 2 / (fuzziness - 1), sum = 0f;
+                double power = 2 / (fuzziness - 1), sum = 0.0f;
                 for (int k = 0; k < clustersCount; k++)
                 {
-                    double t = Math.Pow(CalculateEuclidLength(i, j) / CalculateEuclidLength(i, k), power);
-                    sum += t;//Math.Pow(CalculateEuclidLength(i, j) / CalculateEuclidLength(i, k), power);
+                    sum += Math.Pow(CalculateEuclidLength(i, j) / CalculateEuclidLength(i, k), power);
                 }
-                return 1 / sum;
+                return 1.0f / sum;
             }
 
             /// <summary>
@@ -160,14 +161,15 @@ namespace ConsoleApp
             /// <returns></returns>
             private double RecalculateMemberDegree()
             {
-                double maxDiff = 0f, diff, mdValue;
+                double maxDiff = 0.0f, diff = 0.0f, mdValue;
 
                 for (int j = 0; j < clustersCount; j++)
                 {
                     for (int i = 0; i < dataVectorsCount; i++)
                     {
                         mdValue = CalculateNewMemberDegreeItem(i, j);
-                        diff = mdValue - memberDegree[i, j];
+                        diff = Math.Abs(mdValue - memberDegree[i, j]);
+                        //diff = mdValue - memberDegree[i, j];
                         if (diff > maxDiff)
                             maxDiff = diff;
                         memberDegree[i,j] = mdValue;
@@ -176,9 +178,9 @@ namespace ConsoleApp
                 return maxDiff;
             }
 
-            public Dictionary<WordDigram, double[]> Clusterize()
+            public Dictionary<T, double[]> Clusterize()
             {
-                double maxDiff = 0f;
+                double maxDiff = 0.0f;
                 int i = 0;
                 do
                 {
@@ -186,10 +188,10 @@ namespace ConsoleApp
                     maxDiff = RecalculateMemberDegree();
                     i++;
                 }
-                while (maxDiff > epsilon || i < iterations);
+                while (maxDiff > epsilon && i < iterations);
 
                 //формирование выходного словаря
-                var dict = new Dictionary<WordDigram, double[]>();
+                var dict = new Dictionary<T, double[]>();
                 int n = 0;
                 foreach (var key in wordsDigrams)
                 {
@@ -238,7 +240,7 @@ namespace ConsoleApp
                 return el.analysis[0].lex;
             }).ToList();
 
-            var frequencyWordDict = words.GetFrequencyDictionary();
+            var frequencyWordDict = StatisticsAnalysis.GetFrequencyDictionary(words);
 
             var frequencyDigramDict = StatisticsAnalysis.GetDigramFrequenceDictionary(words);
             var mutualInf = StatisticsAnalysis.CalculateMutualInformation(frequencyDigramDict, frequencyWordDict, words.Count);
@@ -247,24 +249,29 @@ namespace ConsoleApp
 
             List<Dictionary<WordDigram, double>> dList = new List<Dictionary<WordDigram, double>>();
             dList.Add(frequencyDigramDict.ToDictionary(i => i.Key, i => (double)i.Value));
-            int max_i = frequencyDigramDict.Max(i => i.Value);
-            var b = frequencyDigramDict.First(i => i.Value == max_i).Key;
             //dList.Add(mutualInf);
             //dList.Add(tScore);
             //dList.Add(llh);
-            var mergedDictionary = StatisticsAnalysis.MergeDictionaries(dList);
+            var mergedDictionary = dList.MergeDictionaries<WordDigram>();
+
+            //СЛОВА
+            List<Dictionary<string, double>> wlist = new List<Dictionary<string, double>>();
+            wlist.Add(frequencyWordDict.ToDictionary(i => i.Key, i => (double)i.Value));
+            var d = wlist.MergeDictionaries<string>();
+            var m = d.Select(i => new { i.Key, v = i.Value[0] }).ToList();
+            var c = m.OrderByDescending(i => i.v).ToList();
 
             double[,] clusters = new double[,]
             {
-                //{ 14.8f, 0.96f, 3.29f},
+                //{ 14.8f, 0.96f, 3.29
                 //{ 1, 10, 0.2f, 2}
                 //{ 10, 0.1f, 1}
-                { 9 },
-                { 1 }
+                { 25 },
+                { 10 }
             };
-            ClasterAnalysis ca = new ClasterAnalysis(mergedDictionary, 0.05f, 1.6f, 10000, clusters);
+            ClasterAnalysis<string> ca = new ClasterAnalysis<string>(d, 0.000000000000000000000000001, 1.6f, 10000, clusters);
             var res = ca.Clusterize();
-            var r = res.Where(i => i.Key.FirstWord == "взаимодействие");
+            //var r = res.Where(i => i.Key.FirstWord == "взаимодействие");
         }
     }
 }
