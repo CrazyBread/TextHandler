@@ -61,7 +61,7 @@ namespace ConsoleApp
             }
 
             /// <summary>
-            /// Инициализация матрицы принадлежности
+            /// Инициализация матрицы принадлежности, с условием, что сумма всех значений не превышает 1.0
             /// </summary>
             private void InitializeMatrix()
             {
@@ -74,7 +74,7 @@ namespace ConsoleApp
                     r = 100;
                     for (int j = 1; j < memberDegree.GetLength(1); j++)
                     {
-                        rval = rnd.Next(1, 100);
+                        rval = rnd.Next(1, r);
                         r -= rval;
                         memberDegree[i, j] = rval / 100.0f;
                         s += memberDegree[i, j];
@@ -187,6 +187,7 @@ namespace ConsoleApp
                     CalculateClusterCenters();
                     maxDiff = RecalculateMemberDegree();
                     i++;
+                    Console.WriteLine(maxDiff);
                 }
                 while (maxDiff > epsilon && i < iterations);
 
@@ -203,7 +204,6 @@ namespace ConsoleApp
                     dict.Add(key, analysis);
                     n++;
                 }
-
                 return dict;
             }
         }
@@ -263,14 +263,21 @@ namespace ConsoleApp
 
             double[,] clusters = new double[,]
             {
-                //{ 14.8f, 0.96f, 3.29
-                //{ 1, 10, 0.2f, 2}
-                //{ 10, 0.1f, 1}
+                //{ 14.8f, 0.96f, 3.29 }
+                //{ 1, 10, 0.2f, 2 }
+                //{ 10, 0.1f, 1 }
                 { 25 },
-                { 10 }
+                //{ 10 },
+                { 5 }
             };
-            ClasterAnalysis<string> ca = new ClasterAnalysis<string>(d, 0.000000000000000000000000001, 1.6f, 10000, clusters);
+            ClasterAnalysis<string> ca = new ClasterAnalysis<string>(d, 0.000000000000000000000000001, 1.5f, 10000, clusters);
             var res = ca.Clusterize();
+
+            var n = (
+                from i in c
+                join j in res on i.Key equals j.Key
+                select new { word = i.Key, values = j.Value, count = i.v }
+            ).ToList();
             //var r = res.Where(i => i.Key.FirstWord == "взаимодействие");
         }
     }
