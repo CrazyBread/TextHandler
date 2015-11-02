@@ -51,7 +51,7 @@ namespace CoreLib
         }
         #endregion
 
-        #region Биграммы
+        #region Биграммы (Digrams)
         /// <summary>
         /// Получение частотного словаря биграмм
         /// </summary>
