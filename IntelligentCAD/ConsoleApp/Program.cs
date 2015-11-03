@@ -9,24 +9,9 @@ namespace ConsoleApp
 {
     class Program
     {
+        //https://msdn.microsoft.com/en-us/library/windows/apps/ff402526(v=vs.105).aspx
         static void Main(string[] args)
         {
-            //double[,] data = new double[,]
-            //{
-            //    { 8.5f, 4.8f, 0.0f },
-            //    { 2.5f, 7.8f, 32.0f },
-            //    { 3.5f, 16.8f, 40.4f },
-            //    { 5.5f, 12.8f, 34.9f },
-            //    { 2.5f, 3.8f, 32.3f },
-            //};
-            //double[,] clusters = new double[,]
-            //{
-            //    { 15f, 15f, 15f },
-            //    { 0f, 0f, 0f }
-            //};
-            //ClasterAnalysis c = new ClasterAnalysis(1.6f, 0.005f, data, clusters);
-            //c.Print(c.degree_of_member);
-
             Multiprocessor mps = new Multiprocessor();
             mps.MultiprocessorFileRead(new List<string>() { "mainText.txt" });
             var texts = mps.Cache;

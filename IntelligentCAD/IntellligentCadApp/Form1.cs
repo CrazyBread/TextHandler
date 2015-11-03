@@ -170,9 +170,5 @@ namespace IntellligentCadApp
                 outputFileNameLabel.Text = string.Empty;
             }
         }
-
-
-
-
     }
 }
