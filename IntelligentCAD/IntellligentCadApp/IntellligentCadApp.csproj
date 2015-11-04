@@ -82,10 +82,6 @@
       <Project>{4b6b9112-ddde-491d-95fd-1e2e11791f49}</Project>
       <Name>CoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MultiprocessingHandler\MultiprocessingLib.csproj">
-      <Project>{7e2b7d55-3c2a-4eb8-9548-736cbb0e7c64}</Project>
-      <Name>MultiprocessingLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

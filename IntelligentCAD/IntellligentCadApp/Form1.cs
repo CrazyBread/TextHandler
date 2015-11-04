@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using MultiprocessingLib;
 using Core;
 using CoreLib;
 
@@ -41,7 +40,7 @@ namespace IntellligentCadApp
                     var fileName = openDialog.FileName;
                     Multiprocessor mps = new Multiprocessor();
                     mps.MultiprocessorFileRead(new List<string> { fileName });
-                    fileTextContent.Lines = mps.Cache
+                    fileTextContent.Lines = mps.FileCache
                         .Select(el => el.List)
                         .SelectMany(el => el.Select(sub => sub))
                         .ToArray();
@@ -68,11 +67,11 @@ namespace IntellligentCadApp
             var result = words;
 
             if (usePrepCheck.Checked)
-                result = result.ExcludeWordsByType(Configuration.WordType.preposition);
+                result = MorphologicalAnalysis.ExcludeWordsByType(result, Configuration.WordType.preposition);
             if (useUnionsCheckbox.Checked)
-                result = result.ExcludeWordsByType(Configuration.WordType.conjunction);
+                result = MorphologicalAnalysis.ExcludeWordsByType(result, Configuration.WordType.conjunction);
             if (useParticleCheckbox.Checked)
-                result = result.ExcludeWordsByType(Configuration.WordType.particle);
+                result = MorphologicalAnalysis.ExcludeWordsByType(result, Configuration.WordType.particle);
 
 #warning Твердый гвоздь
             return result

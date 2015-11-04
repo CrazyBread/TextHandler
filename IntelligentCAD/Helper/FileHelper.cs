@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FileLib;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,25 @@ namespace HelperLib
                 return true;
             }
             return false;
+        }
+
+        public static FileHandler GetFileHandler(string path)
+        {
+            if (!File.Exists(path))
+                return null;
+
+            FileHandler fh = null;
+            switch (Path.GetExtension(path))
+            {
+                case ".txt": fh = new TxtHandler(path); break;
+                case ".pdf": fh = new PdfHandler(path); break;
+                default: break; //неизвестный формат файла
+            }
+
+            if (fh == null)
+                return null;
+
+            return fh;
         }
     }
 }

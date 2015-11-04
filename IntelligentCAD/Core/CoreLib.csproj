@@ -42,16 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API.cs" />
+    <Compile Include="CommonClasses.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ClasterAnalysis.cs" />
-    <Compile Include="Lemm.cs" />
     <Compile Include="MorphologicalAnalysis.cs" />
+    <Compile Include="Multiprocessor.cs" />
     <Compile Include="MystemProvider.cs" />
     <Compile Include="StatisticsAnalysis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WordDigram.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FileHandler\FileLib.csproj">
+      <Project>{61ceac52-eb21-48c0-8686-c1db7f4d9753}</Project>
+      <Name>FileLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Helper\HelperLib.csproj">
       <Project>{d2c1fa22-b7b9-476d-8fed-9a68a856743d}</Project>
       <Name>HelperLib</Name>

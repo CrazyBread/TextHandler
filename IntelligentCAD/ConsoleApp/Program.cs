@@ -1,5 +1,4 @@
-﻿using MultiprocessingLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core;
 using System.Linq;
 using System;
@@ -7,12 +6,20 @@ using CoreLib;
 
 namespace ConsoleApp
 {
-    class Program
+    public class Program
     {
         //https://msdn.microsoft.com/en-us/library/windows/apps/ff402526(v=vs.105).aspx
         static void Main(string[] args)
         {
-            Multiprocessor mps = new Multiprocessor();
+            API client = new API();
+            var data = client.LoadFile("mainText.txt");
+            var multiData = client.LoadFilesMulticore(new List<string>() { "mainText.txt", "mainTextShort.txt" });//, "prepositions.txt" });
+            var mst_one = client.HandleByMystem(data);
+            var mst_several = client.HandleByMystemMulticore(multiData);
+
+
+            Console.WriteLine("That's all!");
+            /*Multiprocessor mps = new Multiprocessor();
             mps.MultiprocessorFileRead(new List<string>() { "mainText.txt" });
             var texts = mps.Cache;
 
@@ -64,7 +71,7 @@ namespace ConsoleApp
                 join j in res on i.Key equals j.Key
                 select new { word = i.Key, values = j.Value, count = i.v }
             ).ToList();
-            //var r = res.Where(i => i.Key.FirstWord == "взаимодействие");
+            //var r = res.Where(i => i.Key.FirstWord == "взаимодействие");*/
         }
     }
 }

@@ -75,10 +75,6 @@
       <Project>{d2c1fa22-b7b9-476d-8fed-9a68a856743d}</Project>
       <Name>HelperLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MultiprocessingHandler\MultiprocessingLib.csproj">
-      <Project>{7e2b7d55-3c2a-4eb8-9548-736cbb0e7c64}</Project>
-      <Name>MultiprocessingLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,7 +19,7 @@ namespace Core
         private string inputFileName;
         private string outputFileName;
 
-        public MystemProvider(int index, string mystemPath = @"mystem\mystem.exe")
+        public MystemProvider(int index = 1, string mystemPath = @"mystem\mystem.exe")
         {
             this.mystemPath = mystemPath;
             this.index = index;
