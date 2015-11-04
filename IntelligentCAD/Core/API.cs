@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using FileLib;
 using HelperLib;
+using CoreLib;
 
 namespace Core
 {
@@ -46,7 +47,7 @@ namespace Core
         #region Mystem-api (2-уровень)
         public List<Lemm> HandleByMystem(List<string> fileLines)
         {
-            MystemProvider mst = new MystemProvider();
+            MystemProvider mst = new MystemProvider(Guid.NewGuid().ToString());
             return mst.LaunchMystem(fileLines);
         }
         public List<MystemData> HandleByMystemMulticore(List<FileData> dataList)
@@ -58,11 +59,33 @@ namespace Core
         #endregion
 
         #region Статистический анализ (3-уровень)
-        public void ProvideStatsAnalysis()
+        public StatsAnalysisResult<string> ProvideWordsStatsAnalysis(List<Lemm> list)
         {
+            List<string> words = list.GetWords();
+            StatsAnalysisResult<string> analysisResult = new StatsAnalysisResult<string>();
 
+            analysisResult.Frequency_Dictionary = StatisticsAnalysis.GetFrequencyDictionary(words);
+            analysisResult.TF_Dictionary = StatisticsAnalysis.GetTF(analysisResult.Frequency_Dictionary, words.Count);
+            analysisResult.TF_IDF_Dictionary = StatisticsAnalysis.GetTF_IDF(Configuration.CCSize, analysisResult.TF_Dictionary);
+
+            return analysisResult;
         }
-        public void ProvideStatsAnalysisMulticore()
+
+        public StatsAnalysisResult<Core.WordDigram> ProvideDigramsStatsAnalysis(List<Lemm> list)
+        {
+            List<string> words = list.GetWords();
+            StatsAnalysisResult<WordDigram> analysisResult = new StatsAnalysisResult<WordDigram>();
+            var wordsFrequency = StatisticsAnalysis.GetFrequencyDictionary(words);
+
+            analysisResult.Frequency_Dictionary = StatisticsAnalysis.GetDigramFrequenceDictionary(words);
+            analysisResult.MutualInformation_Dictionary = StatisticsAnalysis.CalculateMutualInformation(analysisResult.Frequency_Dictionary, wordsFrequency, words.Count);
+            analysisResult.TScore_Dictionary = StatisticsAnalysis.CalculateTScore(analysisResult.Frequency_Dictionary, wordsFrequency, words.Count);
+            analysisResult.LogLikelihood_Dictionary = StatisticsAnalysis.CalculateLogLikelihood(analysisResult.Frequency_Dictionary);
+
+            return analysisResult;
+        }
+
+        public void ProvideStatsAnalysisMulticore(List<MystemData> data)
         {
 
         }

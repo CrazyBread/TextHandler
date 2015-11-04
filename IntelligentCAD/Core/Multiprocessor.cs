@@ -3,6 +3,7 @@ using System.Threading;
 using System.IO;
 using FileLib;
 using HelperLib;
+using System;
 
 namespace Core
 {
@@ -47,7 +48,7 @@ namespace Core
             multiFileCache.Add(new FileData(path, lines));
         }
 
-        private void _runMystem(FileData data, int index)
+        private void _runMystem(FileData data, string index)
         {
             MystemProvider mp = new MystemProvider(index);
             List<Lemm> list = mp.LaunchMystem(data.List);
@@ -64,14 +65,14 @@ namespace Core
                 for (int i = 0; i < threads.Length; i++)
                 {
                     FileData data = list[i];
-                    threads[i] = new Thread(new ThreadStart(() => _runMystem(data, i)));
+                    threads[i] = new Thread(() => _runMystem(data, Guid.NewGuid().ToString()));
                     threads[i].Start();
                 }
-
                 foreach (Thread th in threads)
                 {
                     th.Join();
                 }
+                threads = null;
             }
         }
 
@@ -92,8 +93,8 @@ namespace Core
                 {
                     th.Join();
                 }
+                threads = null;
             }
-            threads = null;
         }
     }
 }

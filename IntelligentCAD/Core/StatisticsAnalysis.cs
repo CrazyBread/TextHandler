@@ -16,13 +16,13 @@ namespace CoreLib
         /// </summary>
         /// <param name="words"></param>
         /// <returns></returns>
-        public static Dictionary<string, int> GetFrequencyDictionary(List<string> words)
+        public static Dictionary<string, double> GetFrequencyDictionary(List<string> words)
         {
             return
                 (
                     from i in words
                     group i by i into grp
-                    select new { word = grp.Key, count = grp.Count() }
+                    select new { word = grp.Key, count = (double) grp.Count() }
                 )
                 .ToDictionary(i => i.word, i => i.count);
         }
@@ -33,7 +33,7 @@ namespace CoreLib
         /// <param name="words"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static Dictionary<string, double> GetTF(Dictionary<string, int> words, int count)
+        public static Dictionary<string, double> GetTF(Dictionary<string, double> words, int count)
         {
             return words.ToDictionary(i => i.Key, i => ((double)i.Value / count));
         }
@@ -57,9 +57,9 @@ namespace CoreLib
         /// </summary>
         /// <param name="wordList"></param>
         /// <returns></returns>
-        public static Dictionary<WordDigram, int> GetDigramFrequenceDictionary(List<string> wordList)
+        public static Dictionary<WordDigram, double> GetDigramFrequenceDictionary(List<string> wordList)
         {
-            var result = new Dictionary<WordDigram, int>();
+            var result = new Dictionary<WordDigram, double>();
             List<string> digram;
             for (var i = 0; i < wordList.Count - 1; i++)
             {
@@ -78,8 +78,8 @@ namespace CoreLib
         /// <param name="frequencyDictionary"></param>
         /// <param name="wordsCount"></param>
         /// <returns></returns>
-        public static Dictionary<WordDigram, double> CalculateMutualInformation(Dictionary<WordDigram, int> frequencyDiagram,
-            Dictionary<string, int> frequencyDictionary, int wordsCount)
+        public static Dictionary<WordDigram, double> CalculateMutualInformation(Dictionary<WordDigram, double> frequencyDiagram,
+            Dictionary<string, double> frequencyDictionary, int wordsCount)
         {
             var result = new Dictionary<WordDigram, double>();
             foreach (var pair in frequencyDiagram)
@@ -103,8 +103,8 @@ namespace CoreLib
         /// <param name="frequencyDictionary"></param>
         /// <param name="wordsCount"></param>
         /// <returns></returns>
-        public static Dictionary<WordDigram, double> CalculateTScore(Dictionary<WordDigram, int> frequencyDiagram,
-            Dictionary<string, int> frequencyDictionary, int wordsCount)
+        public static Dictionary<WordDigram, double> CalculateTScore(Dictionary<WordDigram, double> frequencyDiagram,
+            Dictionary<string, double> frequencyDictionary, int wordsCount)
         {
             var result = new Dictionary<WordDigram, double>();
             foreach (var pair in frequencyDiagram)
@@ -126,7 +126,7 @@ namespace CoreLib
         /// </summary>
         /// <param name="frequencyDiagram"></param>
         /// <returns></returns>
-        public static Dictionary<WordDigram, double> CalculateLogLikelihood(Dictionary<WordDigram, int> frequencyDiagram)
+        public static Dictionary<WordDigram, double> CalculateLogLikelihood(Dictionary<WordDigram, double> frequencyDiagram)
         {
             var result = new Dictionary<WordDigram, double>();
             foreach (var pair in frequencyDiagram)
@@ -235,6 +235,21 @@ namespace CoreLib
         public static int GetWordsCount(this Dictionary<string, int> words)
         {
             return words.Sum(i => i.Value);
+        }
+
+        /// <summary>
+        /// Получить список слов на основе List<Lemm>
+        /// </summary>
+        /// <param name="list">Данные mystem</param>
+        /// <returns></returns>
+        public static List<string> GetWords(this List<Lemm> list)
+        {
+            return list.Select(el =>
+            {
+                if (el.analysis.Length == 0)
+                    return el.text;
+                return el.analysis[0].lex;
+            }).ToList();
         }
     }
 }

@@ -111,4 +111,26 @@ namespace Core
         }
     }
     #endregion
+
+    #region Анализы
+    /// <summary>
+    /// Хранение данных для статистического анализа
+    /// </summary>
+    /// <typeparam name="T">Биграмма, слово (WordDigram, string)</typeparam>
+    public class StatsAnalysisResult<T>
+    {
+        public string Name { get; private set; }
+        public Dictionary<T, double> Frequency_Dictionary { get; set; }
+        public Dictionary<T, double> TF_Dictionary { get; set; }
+        public Dictionary<T, double> TF_IDF_Dictionary { get; set; }
+        public Dictionary<T, double> MutualInformation_Dictionary { get; set; }
+        public Dictionary<T, double> TScore_Dictionary { get; set; }
+        public Dictionary<T, double> LogLikelihood_Dictionary { get; set; }
+
+        public StatsAnalysisResult(string name = "")
+        {
+            Name = name;
+        }
+    }
+    #endregion
 }

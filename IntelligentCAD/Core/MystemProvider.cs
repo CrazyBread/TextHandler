@@ -15,16 +15,16 @@ namespace Core
     public class MystemProvider
     {
         private string mystemPath;
-        private int index;
+        private string index;
         private string inputFileName;
         private string outputFileName;
 
-        public MystemProvider(int index = 1, string mystemPath = @"mystem\mystem.exe")
+        public MystemProvider(string index, string mystemPath = @"mystem\mystem.exe")
         {
             this.mystemPath = mystemPath;
             this.index = index;
-            this.inputFileName = "tmp_input_" + index + ".txt";
-            this.outputFileName = "tmp_output_" + index + ".json";
+            inputFileName = "tmp_input_" + index + ".txt";
+            outputFileName = "tmp_output_" + index + ".json";
         }
 
         /// <summary>
@@ -55,6 +55,7 @@ namespace Core
         /// </summary>
         public List<Lemm> LaunchMystem(List<string> lines, string flags = "-cgin --format json")
         {
+            Console.WriteLine(inputFileName);
             FileHelper.WriteFile(lines, inputFileName);
 
             Process process = new Process()

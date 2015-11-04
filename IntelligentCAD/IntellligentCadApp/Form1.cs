@@ -56,7 +56,7 @@ namespace IntellligentCadApp
         private List<Lemm> SplitWords()
         {
             var lines = fileTextContent.Lines.ToList();
-            var provider = new MystemProvider(0);
+            var provider = new MystemProvider("0");
 
             return provider.LaunchMystem(lines);
         }

@@ -8,6 +8,7 @@ namespace Core
 {
     public static class Configuration
     {
+        public static int CCSize = 100000;
         public static class WordType
         {
             //Типы частей речи

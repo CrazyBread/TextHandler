@@ -13,10 +13,12 @@ namespace ConsoleApp
         {
             API client = new API();
             var data = client.LoadFile("mainText.txt");
-            var multiData = client.LoadFilesMulticore(new List<string>() { "mainText.txt", "mainTextShort.txt" });//, "prepositions.txt" });
+            var multiData = client.LoadFilesMulticore(new List<string>() { "mainText.txt", "mainTextShort.txt", "prepositions.txt", "unions.txt" });
             var mst_one = client.HandleByMystem(data);
             var mst_several = client.HandleByMystemMulticore(multiData);
 
+            var stats_words_one = client.ProvideWordsStatsAnalysis(mst_one);
+            var stats_digrams_one = client.ProvideDigramsStatsAnalysis(mst_one);
 
             Console.WriteLine("That's all!");
             /*Multiprocessor mps = new Multiprocessor();
