@@ -20,6 +20,11 @@ namespace ConsoleApp
             var stats_words_one = client.ProvideWordsStatsAnalysis(mst_one);
             var stats_digrams_one = client.ProvideDigramsStatsAnalysis(mst_one);
 
+            var stats_words_several = client.ProvideWordsStatsAnalysisMulticore(mst_several);
+            var stats_digrams_several = client.ProvideDigramsStatsAnalysisMulticore(mst_several);
+
+
+
             Console.WriteLine("That's all!");
             /*Multiprocessor mps = new Multiprocessor();
             mps.MultiprocessorFileRead(new List<string>() { "mainText.txt" });

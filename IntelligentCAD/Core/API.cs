@@ -45,11 +45,21 @@ namespace Core
         #endregion
 
         #region Mystem-api (2-уровень)
+        /// <summary>
+        /// Обработка строк файла программой mystem
+        /// </summary>
+        /// <param name="fileLines"></param>
+        /// <returns></returns>
         public List<Lemm> HandleByMystem(List<string> fileLines)
         {
             MystemProvider mst = new MystemProvider(Guid.NewGuid().ToString());
             return mst.LaunchMystem(fileLines);
         }
+        /// <summary>
+        /// Мультипроцуессорная обработка файлов программой mystem 
+        /// </summary>
+        /// <param name="dataList"></param>
+        /// <returns></returns>
         public List<MystemData> HandleByMystemMulticore(List<FileData> dataList)
         {
             Multiprocessor mps = new Multiprocessor();
@@ -59,6 +69,11 @@ namespace Core
         #endregion
 
         #region Статистический анализ (3-уровень)
+        /// <summary>
+        /// Статистический анализ файла для отдельных слов
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public StatsAnalysisResult<string> ProvideWordsStatsAnalysis(List<Lemm> list)
         {
             List<string> words = list.GetWords();
@@ -70,8 +85,12 @@ namespace Core
 
             return analysisResult;
         }
-
-        public StatsAnalysisResult<Core.WordDigram> ProvideDigramsStatsAnalysis(List<Lemm> list)
+        /// <summary>
+        /// Статистический анализ для биграмм
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public StatsAnalysisResult<WordDigram> ProvideDigramsStatsAnalysis(List<Lemm> list)
         {
             List<string> words = list.GetWords();
             StatsAnalysisResult<WordDigram> analysisResult = new StatsAnalysisResult<WordDigram>();
@@ -84,19 +103,36 @@ namespace Core
 
             return analysisResult;
         }
-
-        public void ProvideStatsAnalysisMulticore(List<MystemData> data)
+        /// <summary>
+        /// Мультипроцессорный статистический анализ для слов
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public List<StatsAnalysisResult<string>> ProvideWordsStatsAnalysisMulticore(List<MystemData> list)
         {
-
+            Multiprocessor mps = new Multiprocessor();
+            mps.MultiprocesingWordStatsAnalysis(list);
+            return mps.WordsStatsAnalysisCache;
+        }
+        /// <summary>
+        /// Мультипроцессорный статистический анализ для биграмм
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public List<StatsAnalysisResult<WordDigram>> ProvideDigramsStatsAnalysisMulticore(List<MystemData> list)
+        {
+            Multiprocessor mps = new Multiprocessor();
+            mps.MultiprocesingDigramsStatsAnalysis(list);
+            return mps.DigramsStatsAnalysisCache;
         }
         #endregion
 
         #region Морфологический анализ (4-уровень)
-        public void ProvideMorphAnalysis()
+        public void ProvideMorphAnalysis(List<Lemm> list)
         {
 
         }
-        public void ProvideMorphAnalysisMulticore()
+        public void ProvideMorphAnalysisMulticore(List<MystemData> list)
         {
 
         }
