@@ -111,7 +111,7 @@ namespace Core
         public List<StatsAnalysisResult<string>> ProvideWordsStatsAnalysisMulticore(List<MystemData> list)
         {
             Multiprocessor mps = new Multiprocessor();
-            mps.MultiprocesingWordStatsAnalysis(list);
+            mps.MultiprocessorWordStatsAnalysis(list);
             return mps.WordsStatsAnalysisCache;
         }
         /// <summary>
@@ -122,7 +122,7 @@ namespace Core
         public List<StatsAnalysisResult<WordDigram>> ProvideDigramsStatsAnalysisMulticore(List<MystemData> list)
         {
             Multiprocessor mps = new Multiprocessor();
-            mps.MultiprocesingDigramsStatsAnalysis(list);
+            mps.MultiprocessorDigramsStatsAnalysis(list);
             return mps.DigramsStatsAnalysisCache;
         }
         #endregion
@@ -139,13 +139,46 @@ namespace Core
         #endregion
 
         #region Кластерный анализ (5-уровень)
-        public void ProvideClusterAnalysis()
+        public Dictionary<T, double[]> ProvideClusterAnalysis<T>(ClasterSettings<T> settings)
         {
-
+            ClasterAnalysis<T> ca = new ClasterAnalysis<T>(settings);
+            return ca.Clasterize();
         }
+
         public void ProvideClusterAnalysisMulticore()
         {
 
+        }
+
+        /// <summary>
+        /// Методы сбора данных для кластерного анализа
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="analysisResult"></param>
+        /// <returns></returns>
+        public Dictionary<T, double[]> GetDataReady<T>(StatsAnalysisResult<T> analysisResult)
+        {
+            List<Dictionary<T, double>> data = new List<Dictionary<T, double>>();
+
+            if (analysisResult.Frequency_Dictionary != null)
+                data.Add(analysisResult.Frequency_Dictionary);
+
+            if (analysisResult.LogLikelihood_Dictionary != null)
+                data.Add(analysisResult.LogLikelihood_Dictionary);
+
+            if (analysisResult.MutualInformation_Dictionary != null)
+                data.Add(analysisResult.MutualInformation_Dictionary);
+
+            if (analysisResult.TF_Dictionary != null)
+                data.Add(analysisResult.TF_Dictionary);
+
+            if (analysisResult.TF_IDF_Dictionary != null)
+                data.Add(analysisResult.TScore_Dictionary);
+
+            if (analysisResult.TScore_Dictionary != null)
+                data.Add(analysisResult.TScore_Dictionary);
+
+            return data.MergeDictionaries();
         }
         #endregion
     }

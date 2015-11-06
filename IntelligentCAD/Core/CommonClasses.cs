@@ -133,4 +133,59 @@ namespace Core
         }
     }
     #endregion
+
+    #region Кластерный анализ
+    /// <summary>
+    /// Класс, содержащий настройки проводимого кластерного анализа (для UI)
+    /// </summary>
+    public class ClasterSettings<T>
+    {
+        public double[,] ClusterCenters { get; private set; }
+        public double Epsilon { get; private set; }
+        public double Fuzziness { get; private set; }
+        public int IterationCount { get; private set; }
+        public Dictionary<T, double[]> Data { get; private set; }
+
+        public ClasterSettings(double[,] cts, double e, double f, int ic, Dictionary<T, double[]> data)
+        {
+            ClusterCenters = cts;
+            Epsilon = e;
+            Fuzziness = f;
+            IterationCount = ic;
+            Data = data;
+        }
+    }
+
+    /// <summary>
+    /// Класс, описывающий набор параметров (Settings) для проведения кластерного анализа с указанием имени файла (Name)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class ClasterAnalysisData<T>
+    {
+        public string Name { get; private set; }
+        public ClasterSettings<T> Settings { get; private set; }
+
+        public ClasterAnalysisData(string name, ClasterSettings<T> settings)
+        {
+            Name = name;
+            Settings = settings;
+        }
+    }
+
+    /// <summary>
+    /// Класс, описывающий результат выполнения кластерного анализа
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class ClasterAnalysisResult<T>
+    {
+        public string Name { get; private set; }
+        public Dictionary<T, double[]> Result { get; private set; }
+
+        public ClasterAnalysisResult(string name, Dictionary<T, double[]> result)
+        {
+            Name = name;
+            Result = result;
+        }
+    }
+    #endregion
 }

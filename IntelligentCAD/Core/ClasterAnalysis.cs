@@ -15,7 +15,7 @@ namespace Core
         private int clustersCount;
         private int dataVectorsCount;
         private int dimensionsCount;
-        private int iterations;
+        private int iterationCount;
         private double[,] memberDegree;
         private double epsilon;
         private double fuzziness;
@@ -24,15 +24,18 @@ namespace Core
         private List<T> wordsDigrams;
 
         #region Конструкторы
-        public ClasterAnalysis(Dictionary<T, double[]> wordStats, double epsilon, double fuzziness, int iterations, double[,] clusters)
+        public ClasterAnalysis(ClasterSettings<T> settings)
         {
-            this.epsilon = epsilon;
-            this.fuzziness = fuzziness;
-            this.clusterCenters = clusters;
-            this.iterations = iterations;
-            memberDegree = new double[wordStats.Count, clusters.GetLength(0)];
-            data = new double[wordStats.Count, wordStats.First().Value.Length];
-            wordsDigrams = FillDataMatrix(wordStats);
+            //основные параметры
+            epsilon = settings.Epsilon;
+            fuzziness = settings.Fuzziness;
+            clusterCenters = settings.ClusterCenters;
+            iterationCount = settings.IterationCount;
+
+            //данные
+            memberDegree = new double[settings.Data.Count, clusterCenters.GetLength(0)];
+            data = new double[settings.Data.Count, settings.Data.First().Value.Length];
+            wordsDigrams = FillDataMatrix(settings.Data);
             InitializeMatrix();
 
             clustersCount = clusterCenters.GetLength(0);
@@ -179,7 +182,7 @@ namespace Core
             return maxDiff;
         }
 
-        public Dictionary<T, double[]> Clusterize()
+        public Dictionary<T, double[]> Clasterize()
         {
             double maxDiff = 0.0f;
             int i = 0;
@@ -190,7 +193,7 @@ namespace Core
                 i++;
                 Console.WriteLine(maxDiff);
             }
-            while (maxDiff > epsilon && i < iterations);
+            while (maxDiff > epsilon && i < iterationCount);
 
             //формирование выходного словаря
             var dict = new Dictionary<T, double[]>();
