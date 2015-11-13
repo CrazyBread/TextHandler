@@ -17,6 +17,7 @@ namespace Core
         private List<StatsAnalysisResult<WordDigram>> multiDigramsStatsAnalysisCache; //кэш для хранения результата по статистическому анализу для биграмм
         private List<ClasterAnalysisResult<string>> multiWordsClusterAnalysisCache; //кэш для хранения результата кластерного анализа слов
         private List<ClasterAnalysisResult<WordDigram>> multiDigramsClusterAnalysisCache; //кэш для хранения результата кластерного анализа биграмм
+        private List<MystemData> multiMorphAnalysisCache; //кэш для хранения результата морфологического анализа лемм
 
         public List<FileData> FileCache
         {
@@ -39,6 +40,24 @@ namespace Core
             private set { multiDigramsStatsAnalysisCache = value; }
         }
 
+        public List<ClasterAnalysisResult<string>> MultiWordsClusterAnalysisCache
+        {
+            get { return multiWordsClusterAnalysisCache; }
+            private set { multiWordsClusterAnalysisCache = value; }
+        }
+
+        public List<ClasterAnalysisResult<WordDigram>> MultiWordDigramsClusterAnalysisCache
+        {
+            get { return multiDigramsClusterAnalysisCache; }
+            private set { multiDigramsClusterAnalysisCache = value; }
+        }
+
+        public List<MystemData> MultiMorphAnalysisCache
+        {
+            get { return multiMorphAnalysisCache; }
+            private set { multiMorphAnalysisCache = value; }
+        }
+
         public Multiprocessor()
         {
             multiFileCache = new List<FileData>();
@@ -47,6 +66,7 @@ namespace Core
             multiDigramsStatsAnalysisCache = new List<StatsAnalysisResult<WordDigram>>();
             multiWordsClusterAnalysisCache = new List<ClasterAnalysisResult<string>>();
             multiDigramsClusterAnalysisCache = new List<ClasterAnalysisResult<WordDigram>>();
+            multiMorphAnalysisCache = new List<MystemData>();
         }
 
         private void _cleanCache<T>(List<T> cache)
@@ -109,12 +129,38 @@ namespace Core
             ClasterAnalysis<WordDigram> ca = new ClasterAnalysis<WordDigram>(data.Settings);
             multiDigramsClusterAnalysisCache.Add(new ClasterAnalysisResult<WordDigram>(data.Name, ca.Clasterize()));
         }
+
+        private void _provideMorphAnalysis(MystemData data, string[] excludedTypes)
+        {
+            var result = MorphologicalAnalysis.ExcludeWordsByType(data, excludedTypes);
+            multiMorphAnalisysCache.Add(result);
+        }
         #endregion
 
-        public void MultiprocessorWordClasterAnalysis(List<ClasterAnalysisData<WordDigram>> list)
+        public void MultiprocessorMorphAnalysis(List<MystemData> list, string[] excludedTypes)
+        {
+            _cleanCache(multiMorphAnalisysCache);
+            if (list != null && list.Count > 0)
+            {
+                threads = new Thread[list.Count];
+                for (int i = 0; i < threads.Length; i++)
+                {
+                    MystemData data = list[i];
+                    threads[i] = new Thread(() => _provideMorphAnalysis(data, excludedTypes));
+                    threads[i].Start();
+                }
+                foreach (Thread th in threads)
+                {
+                    th.Join();
+                }
+                threads = null;
+            }
+        }
+
+        public void MultiprocessorWordDigramClasterAnalysis(List<ClasterAnalysisData<WordDigram>> list)
         {
             _cleanCache(multiWordsClusterAnalysisCache);
-            if (list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 threads = new Thread[list.Count];
                 for (int i = 0; i < threads.Length; i++)
@@ -134,7 +180,7 @@ namespace Core
         public void MultiprocessorWordClasterAnalysis(List<ClasterAnalysisData<string>> list)
         {
             _cleanCache(multiWordsClusterAnalysisCache);
-            if (list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 threads = new Thread[list.Count];
                 for (int i = 0; i < threads.Length; i++)
@@ -154,7 +200,7 @@ namespace Core
         public void MultiprocessorWordStatsAnalysis(List<MystemData> list)
         {
             _cleanCache(multiWordsStatsAnalysisCache);
-            if (list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 threads = new Thread[list.Count];
                 for (int i = 0; i < threads.Length; i++)
@@ -174,7 +220,7 @@ namespace Core
         public void MultiprocessorDigramsStatsAnalysis(List<MystemData> list)
         {
             _cleanCache(multiWordsStatsAnalysisCache);
-            if (list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 threads = new Thread[list.Count];
                 for (int i = 0; i < threads.Length; i++)
@@ -194,7 +240,7 @@ namespace Core
         public void MultiprocessorMystemHandler(List<FileData> list)
         {
             _cleanCache(multiMystemCache);
-            if (list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 threads = new Thread[list.Count];
                 for (int i = 0; i < threads.Length; i++)
@@ -215,7 +261,7 @@ namespace Core
         {
             _cleanCache(multiFileCache);
             paths = FileHelper.CheckFiles(paths);
-            if (paths.Count > 0)
+            if (paths != null && paths.Count > 0)
             {
                 threads = new Thread[paths.Count];
                 for (int i = 0; i < threads.Length; i++)

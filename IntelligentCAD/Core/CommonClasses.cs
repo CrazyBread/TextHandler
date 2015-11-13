@@ -28,7 +28,7 @@ namespace Core
     /// </summary>
     public class MystemData
     {
-        public List<Lemm> List { get; private set; }
+        public List<Lemm> List { get; set; }
         public string Name { get; private set; }
         public MystemData(string name, List<Lemm> list)
         {

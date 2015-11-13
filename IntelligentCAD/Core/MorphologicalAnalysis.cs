@@ -29,5 +29,17 @@ namespace Core
         {
             return lemms.Where(i => i.analysis.Length > 0 && !i.analysis.Any(j => types.Contains(j.wordType))).ToList();
         }
+
+        /// <summary>
+        /// Исключение лемм по типу речи
+        /// </summary>
+        /// <param name="lemms"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static MystemData ExcludeWordsByType(MystemData mstData, params string[] types)
+        {
+            mstData.List = mstData.List.Where(i => i.analysis.Length > 0 && !i.analysis.Any(j => types.Contains(j.wordType))).ToList();
+            return mstData;
+        }
     }
 }

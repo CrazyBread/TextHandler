@@ -128,26 +128,66 @@ namespace Core
         #endregion
 
         #region Морфологический анализ (4-уровень)
-        public void ProvideMorphAnalysis(List<Lemm> list)
+        /// <summary>
+        /// Морфологический анализ (Исключение) 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="excludedTypes"></param>
+        /// <returns></returns>
+        public List<Lemm> ProvideMorphAnalysis(List<Lemm> list, string[] excludedTypes)
         {
-
+            return MorphologicalAnalysis.ExcludeWordsByType(list, excludedTypes);
         }
-        public void ProvideMorphAnalysisMulticore(List<MystemData> list)
-        {
 
+        /// <summary>
+        /// Мультипроцессорный анализ для Лемм 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="excludedTypes"></param>
+        /// <returns></returns>
+        public List<MystemData> ProvideMorphAnalysisMulticore(List<MystemData> list, string[] excludedTypes)
+        {
+            Multiprocessor mps = new Multiprocessor();
+            mps.MultiprocessorMorphAnalysis(list, excludedTypes);
+            return mps.MultiMorphAnalysisCache;
         }
         #endregion
 
         #region Кластерный анализ (5-уровень)
+        /// <summary>
+        /// Производит кластерный анализ для одного текста
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="settings"></param>
+        /// <returns></returns>
         public Dictionary<T, double[]> ProvideClusterAnalysis<T>(ClasterSettings<T> settings)
         {
             ClasterAnalysis<T> ca = new ClasterAnalysis<T>(settings);
             return ca.Clasterize();
         }
 
-        public void ProvideClusterAnalysisMulticore()
+        /// <summary>
+        /// Многопроцессорная обработка для кластерного анализа слов
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public List<ClasterAnalysisResult<string>> ProvideWordClusterAnalysisMulticore(List<ClasterAnalysisData<string>> data)
         {
+            Multiprocessor mps = new Multiprocessor();
+            mps.MultiprocessorWordClasterAnalysis(data);
+            return mps.MultiWordsClusterAnalysisCache;
+        }
 
+        /// <summary>
+        /// Много процессорная обработка для кластерного анализа биграмм
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public List<ClasterAnalysisResult<WordDigram>> ProvideWordDigramClusterAnalysisMulticore(List<ClasterAnalysisData<WordDigram>> data)
+        {
+            Multiprocessor mps = new Multiprocessor();
+            mps.MultiprocessorWordDigramClasterAnalysis(data);
+            return mps.MultiWordDigramsClusterAnalysisCache;
         }
 
         /// <summary>
