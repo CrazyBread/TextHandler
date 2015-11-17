@@ -133,13 +133,13 @@ namespace Core
         private void _provideMorphAnalysis(MystemData data, string[] excludedTypes)
         {
             var result = MorphologicalAnalysis.ExcludeWordsByType(data, excludedTypes);
-            multiMorphAnalisysCache.Add(result);
+            multiMorphAnalysisCache.Add(result);
         }
         #endregion
 
         public void MultiprocessorMorphAnalysis(List<MystemData> list, string[] excludedTypes)
         {
-            _cleanCache(multiMorphAnalisysCache);
+            _cleanCache(multiMorphAnalysisCache);
             if (list != null && list.Count > 0)
             {
                 threads = new Thread[list.Count];

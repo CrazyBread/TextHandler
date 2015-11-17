@@ -55,6 +55,19 @@ namespace Core
             MystemProvider mst = new MystemProvider(Guid.NewGuid().ToString());
             return mst.LaunchMystem(fileLines);
         }
+
+        /// <summary>
+        /// Обработка конкретного файла с помощью Mystem
+        /// </summary>
+        /// <param name="filePath">Путь до файла</param>
+        /// <returns></returns>
+        public List<Lemm> HandleByMystem(string filePath)
+        {
+            var fileLines = LoadFile(filePath);
+            MystemProvider mst = new MystemProvider(Guid.NewGuid().ToString());
+            return mst.LaunchMystem(fileLines);
+        }
+
         /// <summary>
         /// Мультипроцуессорная обработка файлов программой mystem 
         /// </summary>
@@ -66,6 +79,20 @@ namespace Core
             mps.MultiprocessorMystemHandler(dataList);
             return mps.MystemCache;
         }
+
+        /// <summary>
+        /// Обработка нескольких файлов с помощью Mystem
+        /// </summary>
+        /// <param name="filesPaths"></param>
+        /// <returns></returns>
+        public List<MystemData> HandleByMystemMulticore(List<string> filesPaths)
+        {
+            Multiprocessor mps = new Multiprocessor();
+            mps.MultiprocessorFileRead(filesPaths);
+            mps.MultiprocessorMystemHandler(mps.FileCache);
+            return mps.MystemCache;
+        }
+
         #endregion
 
         #region Статистический анализ (3-уровень)
