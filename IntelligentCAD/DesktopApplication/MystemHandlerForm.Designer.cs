@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbx_Files = new System.Windows.Forms.ComboBox();
             this.btn_LaunchMystem = new System.Windows.Forms.Button();
             this.lstb_MystemResult = new System.Windows.Forms.ListBox();
             this.btn_Continue = new System.Windows.Forms.Button();
-            this.cbx_Files = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +46,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(492, 359);
             this.panel1.TabIndex = 2;
+            // 
+            // cbx_Files
+            // 
+            this.cbx_Files.FormattingEnabled = true;
+            this.cbx_Files.Location = new System.Drawing.Point(4, 8);
+            this.cbx_Files.Name = "cbx_Files";
+            this.cbx_Files.Size = new System.Drawing.Size(388, 21);
+            this.cbx_Files.TabIndex = 3;
+            this.cbx_Files.SelectedIndexChanged += new System.EventHandler(this.cbx_Files_SelectedIndexChanged);
             // 
             // btn_LaunchMystem
             // 
@@ -75,15 +84,6 @@
             this.btn_Continue.Text = "Продолжить";
             this.btn_Continue.UseVisualStyleBackColor = true;
             this.btn_Continue.Click += new System.EventHandler(this.btn_Continue_Click);
-            // 
-            // cbx_Files
-            // 
-            this.cbx_Files.FormattingEnabled = true;
-            this.cbx_Files.Location = new System.Drawing.Point(4, 8);
-            this.cbx_Files.Name = "cbx_Files";
-            this.cbx_Files.Size = new System.Drawing.Size(388, 21);
-            this.cbx_Files.TabIndex = 3;
-            this.cbx_Files.SelectedIndexChanged += new System.EventHandler(this.cbx_Files_SelectedIndexChanged);
             // 
             // MystemHandlerForm
             // 

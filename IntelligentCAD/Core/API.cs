@@ -61,11 +61,11 @@ namespace Core
         /// </summary>
         /// <param name="filePath">Путь до файла</param>
         /// <returns></returns>
-        public List<Lemm> HandleByMystem(string filePath)
+        public MystemData HandleByMystem(string filePath)
         {
             var fileLines = LoadFile(filePath);
             MystemProvider mst = new MystemProvider(Guid.NewGuid().ToString());
-            return mst.LaunchMystem(fileLines);
+            return new MystemData(filePath, mst.LaunchMystem(fileLines));
         }
 
         /// <summary>
@@ -161,9 +161,9 @@ namespace Core
         /// <param name="list"></param>
         /// <param name="excludedTypes"></param>
         /// <returns></returns>
-        public List<Lemm> ProvideMorphAnalysis(List<Lemm> list, string[] excludedTypes)
+        public MystemData ProvideMorphAnalysis(MystemData data, string[] excludedTypes)
         {
-            return MorphologicalAnalysis.ExcludeWordsByType(list, excludedTypes);
+            return MorphologicalAnalysis.ExcludeWordsByType(data, excludedTypes);
         }
 
         /// <summary>

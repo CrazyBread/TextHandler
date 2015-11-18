@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbx_FileSelection = new System.Windows.Forms.ComboBox();
             this.grpbox_Exclusions = new System.Windows.Forms.GroupBox();
             this.chbx_Particles = new System.Windows.Forms.CheckBox();
             this.chbx_Prepositions = new System.Windows.Forms.CheckBox();
@@ -42,6 +43,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbx_FileSelection);
             this.panel1.Controls.Add(this.grpbox_Exclusions);
             this.panel1.Controls.Add(this.btn_CheckExclusions);
             this.panel1.Controls.Add(this.lstb_MorphResult);
@@ -50,6 +52,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(492, 359);
             this.panel1.TabIndex = 3;
+            // 
+            // cbx_FileSelection
+            // 
+            this.cbx_FileSelection.FormattingEnabled = true;
+            this.cbx_FileSelection.Location = new System.Drawing.Point(3, 8);
+            this.cbx_FileSelection.Name = "cbx_FileSelection";
+            this.cbx_FileSelection.Size = new System.Drawing.Size(209, 21);
+            this.cbx_FileSelection.TabIndex = 4;
+            this.cbx_FileSelection.SelectedIndexChanged += new System.EventHandler(this.cbx_FileSelection_SelectedIndexChanged);
             // 
             // grpbox_Exclusions
             // 
@@ -107,24 +118,25 @@
             this.btn_CheckExclusions.TabIndex = 2;
             this.btn_CheckExclusions.Text = "Убрать выбранные типы";
             this.btn_CheckExclusions.UseVisualStyleBackColor = true;
+            this.btn_CheckExclusions.Click += new System.EventHandler(this.btn_CheckExclusions_Click);
             // 
             // lstb_MorphResult
             // 
             this.lstb_MorphResult.FormattingEnabled = true;
-            this.lstb_MorphResult.Location = new System.Drawing.Point(3, 8);
+            this.lstb_MorphResult.Location = new System.Drawing.Point(3, 34);
             this.lstb_MorphResult.Name = "lstb_MorphResult";
-            this.lstb_MorphResult.Size = new System.Drawing.Size(209, 342);
+            this.lstb_MorphResult.Size = new System.Drawing.Size(209, 316);
             this.lstb_MorphResult.TabIndex = 1;
             // 
             // btn_Continue
             // 
-            this.btn_Continue.Enabled = false;
             this.btn_Continue.Location = new System.Drawing.Point(374, 320);
             this.btn_Continue.Name = "btn_Continue";
             this.btn_Continue.Size = new System.Drawing.Size(115, 30);
             this.btn_Continue.TabIndex = 0;
             this.btn_Continue.Text = "Продолжить";
             this.btn_Continue.UseVisualStyleBackColor = true;
+            this.btn_Continue.Click += new System.EventHandler(this.btn_Continue_Click);
             // 
             // MorphologicalAnalysisForm
             // 
@@ -154,5 +166,6 @@
         private System.Windows.Forms.CheckBox chbx_Particles;
         private System.Windows.Forms.CheckBox chbx_Prepositions;
         private System.Windows.Forms.CheckBox chbx_Conjunction;
+        private System.Windows.Forms.ComboBox cbx_FileSelection;
     }
 }

@@ -47,6 +47,10 @@ namespace Core
         [DataMember(Name = "analysis")]
         public Analysis[] analysis { get; set; } //анализ
 
+        public override string ToString()
+        {
+            return text;
+        }
     }
     [DataContract]
     public class Analysis

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,21 @@ namespace DesktopApplication
 {
     public partial class StatsAnalysisForm : Form
     {
-        public StatsAnalysisForm()
+        private MystemData data;
+        private List<MystemData> listData;
+
+        public StatsAnalysisForm(MystemData data)
         {
             InitializeComponent();
+            this.data = data;
         }
+
+        public StatsAnalysisForm(List<MystemData> listData)
+        {
+            InitializeComponent();
+            this.listData = listData;
+        }
+
+        //...
     }
 }

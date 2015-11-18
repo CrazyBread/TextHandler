@@ -8,13 +8,14 @@ namespace DesktopApplication
     public partial class MystemHandlerForm : Form
     {
         private List<string> files = new List<string>();
-        private List<Lemm> singleResult;
+        private MystemData singleResult;
         private List<MystemData> multiResult;
         private MorphologicalAnalysisForm nextForm;
 
         public MystemHandlerForm(List<string> files)
         {
             InitializeComponent();
+            cbx_Files.Enabled = false;
             cbx_Files.Items.AddRange(files.ToArray());
             cbx_Files.SelectedIndex = 0;
             this.files = files;
@@ -23,7 +24,8 @@ namespace DesktopApplication
         #region Auxillary methods
         private void fillListbox(List<Lemm> list)
         {
-            lstb_MystemResult.Items.AddRange(list.Select(i => i.text).ToArray());
+            lstb_MystemResult.Items.Clear();
+            lstb_MystemResult.Items.AddRange(list.Select(i => i.ToString()).ToArray());
         }
         #endregion
 
@@ -34,13 +36,13 @@ namespace DesktopApplication
             if (Program.isSingleRegime)
             {
                 singleResult = Program.client.HandleByMystem(files[0]);
-                fillListbox(singleResult);
+                fillListbox(singleResult.List);
             }
             //multicore
             else
             {
                 multiResult = Program.client.HandleByMystemMulticore(files);
-                fillListbox(multiResult[0].List);
+                fillListbox(multiResult.First(i => i.Name == (string)cbx_Files.SelectedItem).List);
             }
             cbx_Files.Enabled = true;
             btn_Continue.Enabled = true;
@@ -49,7 +51,7 @@ namespace DesktopApplication
         private void btn_Continue_Click(object sender, System.EventArgs e)
         {
             if (Program.isSingleRegime)
-                nextForm = new MorphologicalAnalysisForm(new MystemData(files[0], singleResult)); //временно
+                nextForm = new MorphologicalAnalysisForm(singleResult);
             else
                 nextForm = new MorphologicalAnalysisForm(multiResult);
             this.Close();
@@ -59,7 +61,7 @@ namespace DesktopApplication
         private void cbx_Files_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (!Program.isSingleRegime && multiResult != null)
-                fillListbox(multiResult[cbx_Files.SelectedIndex].List);
+                fillListbox(multiResult.First(i => i.Name == (string)cbx_Files.SelectedItem).List);
         }
     }
 }
