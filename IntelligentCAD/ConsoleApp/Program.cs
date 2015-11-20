@@ -11,19 +11,17 @@ namespace ConsoleApp
         //https://msdn.microsoft.com/en-us/library/windows/apps/ff402526(v=vs.105).aspx
         static void Main(string[] args)
         {
-            API client = new API();
-            var data = client.LoadFile("mainText.txt");
-            var multiData = client.LoadFilesMulticore(new List<string>() { "mainText.txt", "mainTextShort.txt", "prepositions.txt", "unions.txt" });
-            var mst_one = client.HandleByMystem(data);
-            var mst_several = client.HandleByMystemMulticore(multiData);
+            //API client = new API();
+            //var data = client.LoadFile("mainText.txt");
+            //var multiData = client.LoadFilesMulticore(new List<string>() { "mainText.txt", "mainTextShort.txt", "prepositions.txt", "unions.txt" });
+            //var mst_one = client.HandleByMystem(data);
+            //var mst_several = client.HandleByMystemMulticore(multiData);
 
-            var stats_words_one = client.ProvideWordsStatsAnalysis(mst_one);
-            var stats_digrams_one = client.ProvideDigramsStatsAnalysis(mst_one);
+            //var stats_words_one = client.ProvideWordsStatsAnalysis(mst_one);
+            //var stats_digrams_one = client.ProvideDigramsStatsAnalysis(mst_one);
 
-            var stats_words_several = client.ProvideWordsStatsAnalysisMulticore(mst_several);
-            var stats_digrams_several = client.ProvideDigramsStatsAnalysisMulticore(mst_several);
-
-
+            //var stats_words_several = client.ProvideWordsStatsAnalysisMulticore(mst_several);
+            //var stats_digrams_several = client.ProvideDigramsStatsAnalysisMulticore(mst_several);
 
             Console.WriteLine("That's all!");
             /*Multiprocessor mps = new Multiprocessor();

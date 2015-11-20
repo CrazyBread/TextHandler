@@ -210,10 +210,11 @@ namespace Core
         /// <typeparam name="T"></typeparam>
         /// <param name="settings"></param>
         /// <returns></returns>
-        public Dictionary<T, double[]> ProvideClusterAnalysis<T>(ClasterSettings<T> settings)
+        public ClasterAnalysisResult<T> ProvideClusterAnalysis<T>(ClasterSettings<T> settings, string name)
         {
             ClasterAnalysis<T> ca = new ClasterAnalysis<T>(settings);
-            return ca.Clasterize();
+            var result = ca.Clasterize();
+            return new ClasterAnalysisResult<T>(name, result);
         }
 
         /// <summary>

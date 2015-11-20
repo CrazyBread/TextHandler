@@ -45,7 +45,7 @@
             this.panel1.Controls.Add(this.lstb_StatsAnalysisResult);
             this.panel1.Controls.Add(this.btn_Continue);
             this.panel1.Location = new System.Drawing.Point(16, 15);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(656, 442);
             this.panel1.TabIndex = 4;
@@ -54,7 +54,7 @@
             // 
             this.cbx_StatSelection.FormattingEnabled = true;
             this.cbx_StatSelection.Location = new System.Drawing.Point(255, 10);
-            this.cbx_StatSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbx_StatSelection.Margin = new System.Windows.Forms.Padding(4);
             this.cbx_StatSelection.Name = "cbx_StatSelection";
             this.cbx_StatSelection.Size = new System.Drawing.Size(235, 24);
             this.cbx_StatSelection.TabIndex = 4;
@@ -64,7 +64,7 @@
             // 
             this.cbx_TextSelection.FormattingEnabled = true;
             this.cbx_TextSelection.Location = new System.Drawing.Point(4, 10);
-            this.cbx_TextSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbx_TextSelection.Margin = new System.Windows.Forms.Padding(4);
             this.cbx_TextSelection.Name = "cbx_TextSelection";
             this.cbx_TextSelection.Size = new System.Drawing.Size(241, 24);
             this.cbx_TextSelection.TabIndex = 3;
@@ -73,7 +73,7 @@
             // btn_ProvideStatsAnalysis
             // 
             this.btn_ProvideStatsAnalysis.Location = new System.Drawing.Point(499, 10);
-            this.btn_ProvideStatsAnalysis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_ProvideStatsAnalysis.Margin = new System.Windows.Forms.Padding(4);
             this.btn_ProvideStatsAnalysis.Name = "btn_ProvideStatsAnalysis";
             this.btn_ProvideStatsAnalysis.Size = new System.Drawing.Size(153, 377);
             this.btn_ProvideStatsAnalysis.TabIndex = 2;
@@ -86,7 +86,7 @@
             this.lstb_StatsAnalysisResult.FormattingEnabled = true;
             this.lstb_StatsAnalysisResult.ItemHeight = 16;
             this.lstb_StatsAnalysisResult.Location = new System.Drawing.Point(4, 47);
-            this.lstb_StatsAnalysisResult.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstb_StatsAnalysisResult.Margin = new System.Windows.Forms.Padding(4);
             this.lstb_StatsAnalysisResult.Name = "lstb_StatsAnalysisResult";
             this.lstb_StatsAnalysisResult.Size = new System.Drawing.Size(485, 388);
             this.lstb_StatsAnalysisResult.TabIndex = 1;
@@ -95,12 +95,13 @@
             // 
             this.btn_Continue.Enabled = false;
             this.btn_Continue.Location = new System.Drawing.Point(499, 394);
-            this.btn_Continue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_Continue.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Continue.Name = "btn_Continue";
             this.btn_Continue.Size = new System.Drawing.Size(153, 42);
             this.btn_Continue.TabIndex = 0;
             this.btn_Continue.Text = "Продолжить";
             this.btn_Continue.UseVisualStyleBackColor = true;
+            this.btn_Continue.Click += new System.EventHandler(this.btn_Continue_Click);
             // 
             // StatsAnalysisForm
             // 
@@ -108,13 +109,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 462);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(703, 509);
             this.MinimumSize = new System.Drawing.Size(703, 509);
             this.Name = "StatsAnalysisForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Статистический анализ";
-            this.Load += new System.EventHandler(this.StatsAnalysisForm_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

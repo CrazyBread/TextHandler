@@ -18,6 +18,8 @@ namespace DesktopApplication
 
         private StatsAnalysisResult<WordDigram> singleData;
         private List<StatsAnalysisResult<WordDigram>> multiData;
+
+        private ClasterAnalysisForm nextForm;
         
         public StatsAnalysisForm(MystemData data)
         {
@@ -100,10 +102,14 @@ namespace DesktopApplication
                 fillListbox(singleData, (string)cbx_StatSelection.SelectedItem);
         }
 
-        //Загрузка формы
-        private void StatsAnalysisForm_Load(object sender, EventArgs e)
+        private void btn_Continue_Click(object sender, EventArgs e)
         {
-            
+            if (!Program.isSingleRegime)
+                nextForm = new ClasterAnalysisForm(multiData);
+            else
+                nextForm = new ClasterAnalysisForm(singleData);
+            this.Close();
+            nextForm.Show();
         }
     }
 }
