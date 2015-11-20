@@ -123,7 +123,7 @@ namespace Core
     /// <typeparam name="T">Биграмма, слово (WordDigram, string)</typeparam>
     public class StatsAnalysisResult<T>
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
         public Dictionary<T, double> Frequency_Dictionary { get; set; }
         public Dictionary<T, double> TF_Dictionary { get; set; }
         public Dictionary<T, double> TF_IDF_Dictionary { get; set; }

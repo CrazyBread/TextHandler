@@ -117,9 +117,9 @@ namespace Core
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public StatsAnalysisResult<WordDigram> ProvideDigramsStatsAnalysis(List<Lemm> list)
+        public StatsAnalysisResult<WordDigram> ProvideDigramsStatsAnalysis(MystemData data)
         {
-            List<string> words = list.GetWords();
+            List<string> words = data.List.GetWords();
             StatsAnalysisResult<WordDigram> analysisResult = new StatsAnalysisResult<WordDigram>();
             var wordsFrequency = StatisticsAnalysis.GetFrequencyDictionary(words);
 
@@ -240,7 +240,7 @@ namespace Core
                 data.Add(analysisResult.TF_Dictionary);
 
             if (analysisResult.TF_IDF_Dictionary != null)
-                data.Add(analysisResult.TScore_Dictionary);
+                data.Add(analysisResult.TF_IDF_Dictionary);
 
             if (analysisResult.TScore_Dictionary != null)
                 data.Add(analysisResult.TScore_Dictionary);

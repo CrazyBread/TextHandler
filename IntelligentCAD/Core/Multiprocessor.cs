@@ -110,6 +110,7 @@ namespace Core
             StatsAnalysisResult<WordDigram> analysisResult = new StatsAnalysisResult<WordDigram>();
             var wordsFrequency = StatisticsAnalysis.GetFrequencyDictionary(words);
 
+            analysisResult.Name = data.Name;
             analysisResult.Frequency_Dictionary = StatisticsAnalysis.GetDigramFrequenceDictionary(words);
             analysisResult.MutualInformation_Dictionary = StatisticsAnalysis.CalculateMutualInformation(analysisResult.Frequency_Dictionary, wordsFrequency, words.Count);
             analysisResult.TScore_Dictionary = StatisticsAnalysis.CalculateTScore(analysisResult.Frequency_Dictionary, wordsFrequency, words.Count);
