@@ -181,6 +181,29 @@ namespace Core
         #endregion
 
         #region Кластерный анализ (5-уровень)
+
+        public double[,] GetDefaultClustersCenters<T>(Dictionary<T, double[]> statisticDictionary)
+        {
+            var statisticsElements = statisticDictionary.Values;
+            var length = statisticsElements.Max(el => el.Length);
+            if (length != statisticsElements.Min(el => el.Length))
+                throw new Exception("Differ statistics array lengths!");
+            if (length < 1)
+                throw new Exception("Statistics is empty!");
+            var orderStaticstics = statisticsElements.OrderBy(el => el[0]);
+            for (var i = 1; i < length; i++)
+                orderStaticstics = orderStaticstics.ThenBy(el => el[i]);
+            var first = orderStaticstics.First();
+            var last = orderStaticstics.Last();
+            var result = new double[2, length];
+            for(var i=0;i<length;i++)
+            {
+                result[0, i] = first[i];
+                result[1, i] = last[i];
+            }
+            return result;
+        }
+
         /// <summary>
         /// Производит кластерный анализ для одного текста
         /// </summary>
