@@ -123,6 +123,7 @@ namespace Core
             StatsAnalysisResult<WordDigram> analysisResult = new StatsAnalysisResult<WordDigram>();
             var wordsFrequency = StatisticsAnalysis.GetFrequencyDictionary(words);
 
+            analysisResult.Name = data.Name;
             analysisResult.Frequency_Dictionary = StatisticsAnalysis.GetDigramFrequenceDictionary(words);
             analysisResult.MutualInformation_Dictionary = StatisticsAnalysis.CalculateMutualInformation(analysisResult.Frequency_Dictionary, wordsFrequency, words.Count);
             analysisResult.TScore_Dictionary = StatisticsAnalysis.CalculateTScore(analysisResult.Frequency_Dictionary, wordsFrequency, words.Count);
@@ -192,7 +193,10 @@ namespace Core
                 throw new Exception("Statistics is empty!");
             var orderStaticstics = statisticsElements.OrderBy(el => el[0]);
             for (var i = 1; i < length; i++)
-                orderStaticstics = orderStaticstics.ThenBy(el => el[i]);
+            {
+                var i1 = i;
+                orderStaticstics = orderStaticstics.ThenBy(el => el[i1]);
+            }
             var first = orderStaticstics.First();
             var last = orderStaticstics.Last();
             var result = new double[2, length];

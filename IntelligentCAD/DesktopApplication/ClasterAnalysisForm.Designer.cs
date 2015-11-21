@@ -42,28 +42,26 @@
             this.panel1.Controls.Add(this.btn_ProvideClasterAnalysis);
             this.panel1.Controls.Add(this.lstb_ClusterAnalysisResult);
             this.panel1.Controls.Add(this.btn_CloseApp);
-            this.panel1.Location = new System.Drawing.Point(16, 15);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(656, 442);
+            this.panel1.Size = new System.Drawing.Size(492, 359);
             this.panel1.TabIndex = 5;
             // 
             // cbx_TextSelection
             // 
             this.cbx_TextSelection.FormattingEnabled = true;
-            this.cbx_TextSelection.Location = new System.Drawing.Point(4, 10);
-            this.cbx_TextSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbx_TextSelection.Location = new System.Drawing.Point(3, 8);
             this.cbx_TextSelection.Name = "cbx_TextSelection";
-            this.cbx_TextSelection.Size = new System.Drawing.Size(485, 24);
+            this.cbx_TextSelection.Size = new System.Drawing.Size(365, 21);
             this.cbx_TextSelection.TabIndex = 3;
             this.cbx_TextSelection.SelectedIndexChanged += new System.EventHandler(this.cbx_TextSelection_SelectedIndexChanged);
             // 
             // btn_ProvideClasterAnalysis
             // 
-            this.btn_ProvideClasterAnalysis.Location = new System.Drawing.Point(499, 10);
-            this.btn_ProvideClasterAnalysis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_ProvideClasterAnalysis.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_ProvideClasterAnalysis.Location = new System.Drawing.Point(374, 8);
             this.btn_ProvideClasterAnalysis.Name = "btn_ProvideClasterAnalysis";
-            this.btn_ProvideClasterAnalysis.Size = new System.Drawing.Size(153, 377);
+            this.btn_ProvideClasterAnalysis.Size = new System.Drawing.Size(115, 306);
             this.btn_ProvideClasterAnalysis.TabIndex = 2;
             this.btn_ProvideClasterAnalysis.Text = "Провести кластерный анализ";
             this.btn_ProvideClasterAnalysis.UseVisualStyleBackColor = true;
@@ -72,20 +70,18 @@
             // lstb_ClusterAnalysisResult
             // 
             this.lstb_ClusterAnalysisResult.FormattingEnabled = true;
-            this.lstb_ClusterAnalysisResult.ItemHeight = 16;
-            this.lstb_ClusterAnalysisResult.Location = new System.Drawing.Point(4, 47);
-            this.lstb_ClusterAnalysisResult.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstb_ClusterAnalysisResult.Location = new System.Drawing.Point(3, 38);
             this.lstb_ClusterAnalysisResult.Name = "lstb_ClusterAnalysisResult";
-            this.lstb_ClusterAnalysisResult.Size = new System.Drawing.Size(485, 388);
+            this.lstb_ClusterAnalysisResult.Size = new System.Drawing.Size(365, 316);
             this.lstb_ClusterAnalysisResult.TabIndex = 1;
             // 
             // btn_CloseApp
             // 
+            this.btn_CloseApp.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_CloseApp.Enabled = false;
-            this.btn_CloseApp.Location = new System.Drawing.Point(499, 394);
-            this.btn_CloseApp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_CloseApp.Location = new System.Drawing.Point(374, 320);
             this.btn_CloseApp.Name = "btn_CloseApp";
-            this.btn_CloseApp.Size = new System.Drawing.Size(153, 42);
+            this.btn_CloseApp.Size = new System.Drawing.Size(115, 34);
             this.btn_CloseApp.TabIndex = 0;
             this.btn_CloseApp.Text = "Завершить работу";
             this.btn_CloseApp.UseVisualStyleBackColor = true;
@@ -93,13 +89,13 @@
             // 
             // ClasterAnalysisForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(685, 462);
+            this.ClientSize = new System.Drawing.Size(515, 382);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MaximumSize = new System.Drawing.Size(703, 509);
-            this.MinimumSize = new System.Drawing.Size(703, 509);
+            this.MaximumSize = new System.Drawing.Size(531, 421);
+            this.MinimumSize = new System.Drawing.Size(531, 421);
             this.Name = "ClasterAnalysisForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Кластерный анализ";

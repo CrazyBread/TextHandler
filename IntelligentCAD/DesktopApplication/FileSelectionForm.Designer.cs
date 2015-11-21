@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_CleanListbx = new System.Windows.Forms.Button();
             this.btn_FileSelection = new System.Windows.Forms.Button();
             this.lstb_Files = new System.Windows.Forms.ListBox();
             this.btn_Continue = new System.Windows.Forms.Button();
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.btn_CleanListbx = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +47,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(350, 245);
             this.panel1.TabIndex = 1;
+            // 
+            // btn_CleanListbx
+            // 
+            this.btn_CleanListbx.Location = new System.Drawing.Point(256, 4);
+            this.btn_CleanListbx.Name = "btn_CleanListbx";
+            this.btn_CleanListbx.Size = new System.Drawing.Size(88, 96);
+            this.btn_CleanListbx.TabIndex = 3;
+            this.btn_CleanListbx.Text = "Очистить список";
+            this.btn_CleanListbx.UseVisualStyleBackColor = true;
+            this.btn_CleanListbx.Click += new System.EventHandler(this.btn_CleanListbx_Click);
             // 
             // btn_FileSelection
             // 
@@ -80,21 +90,12 @@
             // 
             this.fileDialog.FileName = "openFileDialog1";
             // 
-            // btn_CleanListbx
-            // 
-            this.btn_CleanListbx.Location = new System.Drawing.Point(256, 4);
-            this.btn_CleanListbx.Name = "btn_CleanListbx";
-            this.btn_CleanListbx.Size = new System.Drawing.Size(88, 96);
-            this.btn_CleanListbx.TabIndex = 3;
-            this.btn_CleanListbx.Text = "Очистить список";
-            this.btn_CleanListbx.UseVisualStyleBackColor = true;
-            this.btn_CleanListbx.Click += new System.EventHandler(this.btn_CleanListbx_Click);
-            // 
             // FileSelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(372, 269);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Name = "FileSelectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -27,6 +27,7 @@ namespace DesktopApplication
             InitializeComponent();
             cbx_TextSelection.Enabled = false;
             cbx_TextSelection.Items.Add(singleData.Name);
+            cbx_TextSelection.SelectedIndex = 0;
             this.singleData = singleData;
         }
 
@@ -35,6 +36,7 @@ namespace DesktopApplication
             InitializeComponent();
             cbx_TextSelection.Enabled = false;
             cbx_TextSelection.Items.AddRange(multiData.Select(i => i.Name).ToArray());
+            cbx_TextSelection.SelectedIndex = 0;
             this.multiData = multiData;
             multiClasterAnalysisSettings = new List<ClasterAnalysisData<WordDigram>>();
         }
@@ -60,16 +62,18 @@ namespace DesktopApplication
             }
         }
 
-        private void fillListbox()
+        private void fillListbox(Dictionary<WordDigram, double[]> dictionary)
         {
-
+            lstb_ClusterAnalysisResult.Items.Clear();
+            lstb_ClusterAnalysisResult.Items.AddRange(dictionary.Select(i => string.Format("{0} {1} : {2} ; {3}", i.Key.FirstWord, i.Key.SecondWord, i.Value[0].ToString("0.000"), i.Value[1].ToString("0.000"))).ToArray());
         }
         #endregion
 
 
         private void cbx_TextSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if(!Program.isSingleRegime && multiResult != null)
+                fillListbox(multiResult.First(i => i.Name == (string)cbx_TextSelection.SelectedItem).Result);
         }
 
         private void btn_ProvideClasterAnalysis_Click(object sender, EventArgs e)
@@ -79,16 +83,20 @@ namespace DesktopApplication
             {
                 multiResult = Program.client.ProvideWordDigramClusterAnalysisMulticore(multiClasterAnalysisSettings);
                 cbx_TextSelection.Enabled = true;
+                fillListbox(multiResult.First(i => i.Name == (string)cbx_TextSelection.SelectedItem).Result);
+                btn_CloseApp.Enabled = true;
             }
             else
             {
                 singleResult = Program.client.ProvideClusterAnalysis<WordDigram>(singleClasterAnalysisSettings, singleData.Name);
+                fillListbox(singleResult.Result);
+                btn_CloseApp.Enabled = true;
             }
         }
 
         private void btn_CloseApp_Click(object sender, EventArgs e)
         {
-
+            Environment.Exit(0);
         }
     }
 }
