@@ -3,6 +3,7 @@ using Core;
 using System.Linq;
 using System;
 using CoreLib;
+using Newtonsoft.Json;
 
 namespace ConsoleApp
 {
@@ -11,13 +12,22 @@ namespace ConsoleApp
         //https://msdn.microsoft.com/en-us/library/windows/apps/ff402526(v=vs.105).aspx
         static void Main(string[] args)
         {
-            //API client = new API();
-            //var data = client.LoadFile("mainText.txt");
+            API client = new API();
+            var data = client.LoadFile("mainText.txt");
             //var multiData = client.LoadFilesMulticore(new List<string>() { "mainText.txt", "mainTextShort.txt", "prepositions.txt", "unions.txt" });
-            //var mst_one = client.HandleByMystem(data);
+            var mst_one = client.HandleByMystem(data);
             //var mst_several = client.HandleByMystemMulticore(multiData);
+            
+            var stats_words_one = client.ProvideWordsStatsAnalysis(mst_one);
+            var dict = client.GetDataReady<string>(stats_words_one);
+            var cl_centers = client.GetDefaultClustersCenters(dict);
+            var cl_settings = new ClasterSettings<string>(cl_centers, 0.000000000000000000000000001, 1.5f, 10000, dict);
+            var result = client.ProvideClusterAnalysis<string>(cl_settings, "1");
+            string json = JsonConvert.SerializeObject(result.Result.Select(i => new { name = i.Key, values = i.Value }));
 
-            //var stats_words_one = client.ProvideWordsStatsAnalysis(mst_one);
+            //ClasterAnalysis<string> ca = new ClasterAnalysis<string>(d, 0.000000000000000000000000001, 1.5f, 10000, clusters);
+            //var res = ca.Clusterize();
+
             //var stats_digrams_one = client.ProvideDigramsStatsAnalysis(mst_one);
 
             //var stats_words_several = client.ProvideWordsStatsAnalysisMulticore(mst_several);

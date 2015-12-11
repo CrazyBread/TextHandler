@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace DesktopApplication
 {
@@ -91,6 +92,7 @@ namespace DesktopApplication
                 singleResult = Program.client.ProvideClusterAnalysis<WordDigram>(singleClasterAnalysisSettings, singleData.Name);
                 fillListbox(singleResult.Result);
                 btn_CloseApp.Enabled = true;
+                string json = JsonConvert.SerializeObject(singleResult.Result.Select(i => new { name = i.Key.FirstWord + " " + i.Key.SecondWord, values = i.Value }));
             }
         }
 
