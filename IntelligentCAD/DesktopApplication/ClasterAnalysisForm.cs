@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace DesktopApplication
 {
@@ -73,7 +74,7 @@ namespace DesktopApplication
 
         private void cbx_TextSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(!Program.isSingleRegime && multiResult != null)
+            if (!Program.isSingleRegime && multiResult != null)
                 fillListbox(multiResult.First(i => i.Name == (string)cbx_TextSelection.SelectedItem).Result);
         }
 
@@ -92,13 +93,70 @@ namespace DesktopApplication
                 singleResult = Program.client.ProvideClusterAnalysis<WordDigram>(singleClasterAnalysisSettings, singleData.Name);
                 fillListbox(singleResult.Result);
                 btn_CloseApp.Enabled = true;
-                string json = JsonConvert.SerializeObject(singleResult.Result.Select(i => new { name = i.Key.FirstWord + " " + i.Key.SecondWord, values = i.Value }));
             }
         }
 
         private void btn_CloseApp_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Сохранить результаты кластерного анализа в json-файл?", "Сохранение результата", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                if (singleResult != null)
+                {
+                    string json = GetClasterResultJson(singleResult);
+                    SaveJson(json);
+                }
+                if (multiResult != null)
+                {
+                    string json = GetMultiClasterResultJson(multiResult);
+                    SaveJson(json);
+                }
+            }
             Environment.Exit(0);
         }
+
+        /// <summary>
+        /// Получение результата кластерного анализа в формате json
+        /// </summary>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        private string GetClasterResultJson(ClasterAnalysisResult<WordDigram> res)
+        {
+            var data = new
+            {
+                name = res.Name,
+                data = res.Result.Select(i => new { digram = string.Format("{0} {1}", i.Key.FirstWord, i.Key.SecondWord), values = i.Value })
+            };
+            return JsonConvert.SerializeObject(data);
+        }
+
+        /// <summary>
+        /// Получение результата кластерного анализа для нескольких файлов в формате json
+        /// </summary>
+        /// <param name="multiRes"></param>
+        /// <returns></returns>
+        private string GetMultiClasterResultJson(List<ClasterAnalysisResult<WordDigram>> multiRes)
+        {
+            var list = new List<object>();
+            foreach (var item in multiRes)
+            {
+                var data = new
+                {
+                    name = item.Name,
+                    data = item.Result.Select(i => new { digram = string.Format("{0} {1}", i.Key.FirstWord, i.Key.SecondWord), values = i.Value })
+                };
+                list.Add(data);
+            }
+            return JsonConvert.SerializeObject(list);
+        }
+
+        private void SaveJson(string jsonString)
+        {
+            using (StreamWriter writer = new StreamWriter("result.json"))
+            {
+                writer.WriteLine(jsonString);
+            }
+        }
+
     }
 }
