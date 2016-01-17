@@ -191,7 +191,6 @@ namespace Core
                 CalculateClusterCenters();
                 maxDiff = RecalculateMemberDegree();
                 i++;
-                Console.WriteLine(maxDiff);
             }
             while (maxDiff > epsilon && i < iterationCount);
 

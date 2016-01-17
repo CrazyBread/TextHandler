@@ -1,87 +1,175 @@
+var filesData = [];
+var svg;
+var ontology = ['документ', 'акт', 'договор', 'дои', 'дпр', 'ду', 'жилой объект', 'мкд', 'общежитие', 'нежилой объект', 'музей', 'театр', 'объект', 'техническое строение', 'водоочистное сооружение', 'газораспределительная станция', 'котельная', 'электростанция', 'учебное заведение', 'университет', 'школа', 'институт', 'организация', 'государственная', 'частная', 'омс', 'рокр', 'ип', 'рсо', 'ук',
+'приборный учет', 'система опрос', 'прибор система', 'прибор учет', 'модель', 'синхронизация данные'];
+
 $(function() {
-	var w = $('#view').width();
-	var h = $('#view').height();
-	var padding = 8;
-	var scale_padding = 20; // space to show axes
-
-	var dataset = [
-	 [80, 20, 10, 60] ];  // x, y, w, h
-
-	//Axis scales
-	var xScale = d3.scale.linear()
-		.domain([0, d3.max(dataset, function (d) {
-			return d;
-		})])
-		.range([padding + scale_padding, w - padding]);
-	var yScale = d3.scale.linear()
-		.domain([0, d3.max(dataset, function (d) {
-			return d;
-		})])
-		.range([h - padding - scale_padding, padding]);
-
-	//Defines Ox axis
-	var xAxis = d3.svg.axis()
-		.scale(xScale)
-		.orient("bottom")
-		.ticks(5);
-
-	//Defines Oy axis
-	var yAxis = d3.svg.axis()
-		.scale(yScale)
-		.orient("left")
-		.ticks(5);
-
-	//Creates SVG element
-	var svg = d3.select("#view")
+	//drop-zone
+	var dropZone = document.getElementById('drop-zone');
+	dropZone.addEventListener('dragover', handleDragOver, false);
+    dropZone.addEventListener('drop', handleFileSelect, false);
+	
+	//Switch between results
+	function chooseResult() {
+		$('#list li').on('click', function() {
+			for(var i = 0; i < filesData.length; i++) {
+				if(filesData[i].fileName == $(this).data('filename')) {
+					//Display result on chart
+					displayResult(JSON.parse(filesData[i].contents).data);
+				}
+			}
+		})
+	}
+	
+	//Drop event
+	function handleFileSelect(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		
+		var files = e.dataTransfer.files;
+		var filesList = [];
+	    filesData = [];
+		
+		if(files) {
+			for(var i = 0, f; f = files[i]; i++) {
+				var r = new FileReader();
+				r.onload = (function(f) {
+					return function(e) {
+						var contents = e.target.result;
+						filesData.push({
+							fileName: escape(f.name),
+							contents: contents		
+						});
+					};
+				})(f);
+				r.readAsText(f);
+				filesList.push('<li data-filename="' + escape(f.name) + '"><b>' + escape(f.name) + '</b></li>');
+			}
+		}
+		$('#list > ul').html(filesList.join(''));
+		chooseResult();
+	}
+	
+	//Drag over event 
+	function handleDragOver(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		e.dataTransfer.dropEffect = 'copy';
+	}
+ 	
+	//Displaying result on chart
+	function displayResult(data) {
+		//Delete all
+		svg.select('.data').html('');
+		
+		//Create circles
+		svg.select('.data')
+			.selectAll("circle")
+			.data(data)
+			.enter()
+				.append("circle")
+				.attr("cx", function (d) {
+					return xScale(d.values[0]);
+				})
+				.attr("cy", function (d) {
+					return yScale(d.values[1]);
+				})
+				.attr("r", function (d) {
+					return rScale(d.values[1]);
+				})
+			.on('mouseover', function(d) {
+				displayPointData(d);
+			});
+		
+		//Create labels
+		svg.select('.data')
+			.selectAll("text")
+			.data(data)
+			.enter()
+				.append("text")
+				.text(function (d) {
+					return d.digram;
+				})
+				.attr("x", function (d) {
+					return xScale(d.values[0]);
+				})
+				.attr("y", function (d) {
+					return yScale(d.values[1]);
+				})
+				.attr("font-family", "sans-serif")
+				.attr("font-size", "11px")
+				.attr("fill", function(d) {
+					if(checkOntology(d.digram))
+						return 'red';
+					else
+						return 'black';
+				})
+			.on('mouseover', function(d) {
+				displayPointData(d);
+			});
+	}
+	
+	//Checks whether the word is termin from ontology or not
+	function checkOntology(str) {
+		for (var i = 0; i < ontology.length; i++)
+			if(str.includes(ontology[i]))
+				return true;
+		return false;
+	}
+	
+	function displayPointData(d) {
+		$('#popup').text(d.digram);
+		if(checkOntology(d.digram))
+			$('#popup').css('color', 'red');
+		else
+			$('#popup').css('color', 'black');
+	}
+	
+	var width = $('#view').width();
+	var height = $('#view').height();
+	var padding = 30;
+	
+	//Scales
+    var xScale = d3.scale.linear()
+                         .domain([0, 1])
+                         .range([padding, width - padding * 2]);
+    var yScale = d3.scale.linear()
+                         .domain([0, 1])
+                         .range([height - padding, padding]);
+    var rScale = d3.scale.linear()
+                         .domain([0, 0.5])
+                         .range([5, 5]);
+	
+	//Defines X axis
+    var xAxis = d3.svg.axis()
+                      .scale(xScale)
+                      .orient("bottom")
+                      .ticks(5);
+    //Defines Y axis
+    var yAxis = d3.svg.axis()
+                      .scale(yScale)
+                      .orient("left")
+                      .ticks(5);
+	
+	 //Create SVG element
+    svg = d3.select("#view")
 		.append("svg")
-		.attr("width", w)
-		.attr("height", h);
-
-	//displaying data
-	
-	
-	//Create circles
-	svg.selectAll("rect")
-		.data(dataset)
-		.enter()
-		.append("rect")
-/*
-Your y-axis is -linear and SVG doesn't accept negative widths, not does it accept x2/y2 < x1/y1 if you
-would use <rect x1 y1 x2 y2> instead, so coordinate pair flipping is in order...
-
-This is the way to do it, particularly important when your scales are not linear (but, say, logarithmic),
-but keep in mind that YOU must still guarantee that those width & hieight values are always positive!
-
-Of course, such work might best be done in the preparation phase rather than right here.
-*/
-    .attr("x", function (d) {
-        var x = Math.min(xScale(d[0]), xScale(d[0] + d[2]));
-        return x;
-    })
-    .attr("y", function (d) {
-        var y = Math.min(yScale(d[1]), yScale(d[1] + d[3]));
-        return y;
-    })
-    .attr("width", function (d) {
-        // return xScale(d[2]);  -- only works like that for +linear scale;
-        var x2 = Math.max(xScale(d[0]), xScale(d[0] + d[2]));
-        var x1 = Math.min(xScale(d[0]), xScale(d[0] + d[2]));
-        return x2 - x1;
-    })
-    .attr("height", function (d) {
-        var y2 = Math.max(yScale(d[1]), yScale(d[1] + d[3]));
-        var y1 = Math.min(yScale(d[1]), yScale(d[1] + d[3]));
-        return y2 - y1;
-    });
-
+		.attr("width", width)
+		.attr("height", height);
+		   
 	//Create X axis
-	svg.append("g")
-		.attr("class", "axis")
-		.attr("transform", "translate(0," + (h - padding - scale_padding) + ")")
-		.call(xAxis);
-	//Create Y axis
-	svg.append("g")
-		.attr("class", "axis")
-		.attr("transform", "translate(" + (padding + scale_padding) + ",0)")
-		.call(yAxis);
-});
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + (height - padding) + ")")
+        .call(xAxis);
+
+    //Create Y axis
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + padding + ",0)")
+        .call(yAxis);
+		
+	//Creates container for data
+	svg.append('g')
+		.attr('class', 'data');
+})

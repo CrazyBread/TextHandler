@@ -108,11 +108,11 @@ namespace DesktopApplication
                 }
                 if (multiResult != null)
                 {
-                    string json = GetMultiClasterResultJson(multiResult);
-                    SaveJson(json);
+                    var jsons = GetMultiClasterResultJson(multiResult);
+                    SaveSeveralJsonFiles(jsons);
                 }
             }
-            Environment.Exit(0);
+            Application.Exit();
         }
 
         /// <summary>
@@ -135,9 +135,9 @@ namespace DesktopApplication
         /// </summary>
         /// <param name="multiRes"></param>
         /// <returns></returns>
-        private string GetMultiClasterResultJson(List<ClasterAnalysisResult<WordDigram>> multiRes)
+        private List<string> GetMultiClasterResultJson(List<ClasterAnalysisResult<WordDigram>> multiRes)
         {
-            var list = new List<object>();
+            var list = new List<string>();
             foreach (var item in multiRes)
             {
                 var data = new
@@ -145,16 +145,24 @@ namespace DesktopApplication
                     name = item.Name,
                     data = item.Result.Select(i => new { digram = string.Format("{0} {1}", i.Key.FirstWord, i.Key.SecondWord), values = i.Value })
                 };
-                list.Add(data);
+                list.Add(JsonConvert.SerializeObject(data));
             }
-            return JsonConvert.SerializeObject(list);
+            return list;
         }
 
         private void SaveJson(string jsonString)
         {
-            using (StreamWriter writer = new StreamWriter("result.json"))
+            using (StreamWriter writer = new StreamWriter("result_" + Guid.NewGuid().ToString().ToLower() + ".json"))
             {
                 writer.WriteLine(jsonString);
+            }
+        }
+
+        private void SaveSeveralJsonFiles(List<string> jsons)
+        {
+            foreach (var json in jsons)
+            {
+                SaveJson(json);
             }
         }
 
