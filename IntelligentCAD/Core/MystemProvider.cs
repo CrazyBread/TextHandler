@@ -14,10 +14,10 @@ namespace Core
     /// </summary>
     public class MystemProvider
     {
-        private string mystemPath;
-        private string index;
-        private string inputFileName;
-        private string outputFileName;
+        private string mystemPath; //путь до mystem
+        private string index; //для параллельной обработки. Каждый поток запуска имеет свой номер для отличия
+        private string inputFileName; //наименование входного файла
+        private string outputFileName; //наименование выходного файла
 
         public MystemProvider(string index, string mystemPath = @"mystem\mystem.exe")
         {

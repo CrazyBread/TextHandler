@@ -1,7 +1,7 @@
 var filesData = [];
 var svg;
-var ontology = ['документ', 'акт', 'договор', 'дои', 'дпр', 'ду', 'жилой объект', 'мкд', 'общежитие', 'нежилой объект', 'музей', 'театр', 'объект', 'техническое строение', 'водоочистное сооружение', 'газораспределительная станция', 'котельная', 'электростанция', 'учебное заведение', 'университет', 'школа', 'институт', 'организация', 'государственная', 'частная', 'омс', 'рокр', 'ип', 'рсо', 'ук',
-'приборный учет', 'система опрос', 'прибор система', 'прибор учет', 'модель', 'синхронизация данные'];
+var ontology = ['документ', 'акт', 'договор', 'дои', 'дпр', 'ду', 'жилой объект', 'мкд', 'общежитие', 'нежилой объект', 'музей', 'театр', 'объект', 'техническое строение', 'водоочистное сооружение', 'газораспределительная станция', 'котельная', 'электростанция', 'учебное заведение', 'университет','школа', 'институт', 'организация', 'государственная', 'частная', 'омс', 'рокр', 'ип', 'рсо', 'ук',
+'показание', 'опрос', 'прибор', 'система', 'учет', 'сервер','синхронизация', 'пользователь', 'данные', 'модель', 'система'];
 
 $(function() {
 	//drop-zone
@@ -88,16 +88,17 @@ $(function() {
 			.enter()
 				.append("text")
 				.text(function (d) {
-					return d.digram;
+					//if(checkOntology(d.digram))
+						return d.digram;
 				})
 				.attr("x", function (d) {
-					return xScale(d.values[0]);
+					return xScale(d.values[0]) + 5;
 				})
 				.attr("y", function (d) {
-					return yScale(d.values[1]);
+					return yScale(d.values[1]) - 5;
 				})
 				.attr("font-family", "sans-serif")
-				.attr("font-size", "11px")
+				.attr("font-size", "12px")
 				.attr("fill", function(d) {
 					if(checkOntology(d.digram))
 						return 'red';
@@ -106,6 +107,12 @@ $(function() {
 				})
 			.on('mouseover', function(d) {
 				displayPointData(d);
+				d3.select(this)
+					.attr('font-size', '30px');
+			})
+			.on('mouseout', function(d) {
+				d3.select(this)
+					.attr('font-size', '12px');
 			});
 	}
 	
@@ -127,7 +134,7 @@ $(function() {
 	
 	var width = $('#view').width();
 	var height = $('#view').height();
-	var padding = 30;
+	var padding = 50;
 	
 	//Scales
     var xScale = d3.scale.linear()
@@ -137,19 +144,19 @@ $(function() {
                          .domain([0, 1])
                          .range([height - padding, padding]);
     var rScale = d3.scale.linear()
-                         .domain([0, 0.5])
+                         .domain([0, 0.05])
                          .range([5, 5]);
 	
 	//Defines X axis
     var xAxis = d3.svg.axis()
                       .scale(xScale)
                       .orient("bottom")
-                      .ticks(5);
+                      .ticks(10);
     //Defines Y axis
     var yAxis = d3.svg.axis()
                       .scale(yScale)
                       .orient("left")
-                      .ticks(5);
+                      .ticks(10);
 	
 	 //Create SVG element
     svg = d3.select("#view")
